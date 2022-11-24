@@ -6,6 +6,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePostTagsTable extends Migration
 {
+    private const TABLE = 'post_tags';
+
     /**
      * Run the migrations.
      *
@@ -13,7 +15,7 @@ class CreatePostTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_tags', function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('post_id')->unsigned()->index();
             $table->unsignedBigInteger('tag_id')->unsigned()->index();
@@ -30,6 +32,6 @@ class CreatePostTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_tags');
+        Schema::dropIfExists(self::TABLE);
     }
 }

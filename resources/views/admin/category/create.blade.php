@@ -35,12 +35,12 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="title">Tag Title</label>
-                                <input type="text" name="name" class="form-control" id="title" placeholder="Tag">
+                                <label for="title">Category Title</label>
+                                <input type="text" name="name" class="form-control" id="title" placeholder="Category">
                             </div>
                             <div class="form-group">
-                                <label for="tagSlug">Tag Slug</label>
-                                <input type="text" name="slug" class="form-control" id="tagSlug" placeholder="TagSlug">
+                                <label for="tagSlug">Category Slug</label>
+                                <input type="text" name="slug" class="form-control" id="tagSlug" placeholder="CategorySlug">
                             </div>
                         </div>
                         <!-- /.card-body -->
@@ -48,6 +48,7 @@
                     <!-- Default box -->
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="{{route('category.index')}}" type="button" class="btn btn-warning">Back</a>
                     </div>
                 </form>
             </section>

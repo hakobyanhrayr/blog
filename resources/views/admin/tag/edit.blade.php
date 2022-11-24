@@ -27,7 +27,8 @@
             </section>
             <!-- Main content -->
             <section class="content col-lg-offset-3 col-lg-6 m-auto">
-                <form class="form-group" action="{{route('tag.store')}}" method="POST">
+                <form class="form-group" action="{{route('tag.update', $tag->id)}}" method="post">
+                    @method('PUT')
                     @csrf
                     <div class="card card-primary">
                         <div class="card-header">
@@ -36,11 +37,15 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="title">Tag Title</label>
-                                <input type="text" name="name" class="form-control" id="title" placeholder="Tag">
+                                <input type="text"
+                                       value="{{ $tag->name }}"
+                                       name="name" class="form-control" id="title" placeholder="Tag">
                             </div>
                             <div class="form-group">
                                 <label for="tagSlug">Tag Slug</label>
-                                <input type="text" name="slug" class="form-control" id="tagSlug" placeholder="TagSlug">
+                                <input type="text"
+                                       value="{{ $tag->slug }}"
+                                       name="slug" class="form-control" id="tagSlug" placeholder="TagSlug">
                             </div>
                         </div>
                         <!-- /.card-body -->

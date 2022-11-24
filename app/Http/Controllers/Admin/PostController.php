@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\PostRequest;
+use App\Models\user\Category;
 use App\Models\user\Post;
+use App\Models\user\Tag;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
@@ -19,74 +23,95 @@ class PostController extends Controller
     public function index()
     {
 //        dd('Posts');
-       return view('admin.post.show');
+        $posts = Post::all();
+       return view('admin.post.show',compact('posts'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Application|Factory|Response|View
+     * @return Application|Factory|View
      */
     public function create()
     {
-        return view('admin.post.create');
+        $tags = Tag::all();
+
+        $categories = Category::all();
+
+        return view('admin.post.create',compact('tags','categories'));
     }
 
     /**
      * @param PostRequest $request
-     * @return Application|Factory|View
+     * @return RedirectResponse
      */
     public function store(PostRequest $request)
     {
-//        dd($request->all());
-        $post = Post::create($request->validated());
+       $post = Post::create($request->validated());
 
-        return view('admin.post.show',compact('post'));
+        return redirect()->route('post.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(int $id)
     {
-//        $post = Post::query()->find($id);
-//       return view('admin.post.show',compact('post'));
+        $post = Post::query()->find($id);
+
+       return view('admin.post.show',compact('post'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param $id
+     * @return Application|Factory|View
      */
     public function edit($id)
     {
-        //
+        $post = Post::query()->find($id);
+
+        $tags = Tag::all();
+
+        $categories = Category::all();
+
+        return view('admin.post.edit',compact('post', 'tags','categories'));
+
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param PostRequest $request
+     * @param $id
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id): RedirectResponse
     {
-        //
+        $post = Post::query()->find($id);
+
+        $post->update($request->validated());
+
+        $post->tags()->sync($request->tags);
+
+        $post->categories()->sync($request->categories);
+
+        $post->save();
+
+        dd($request->toArray());
+
+        return redirect()->route('post.index');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param $id
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
-        //
+        $post = Post::query()->find($id);
+
+        $post->delete();
+
+        return redirect()->route('post.index');
     }
 }

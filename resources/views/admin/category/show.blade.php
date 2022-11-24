@@ -1,10 +1,14 @@
 @extends('admin.layouts.app')
 
+@section('headSection')
+    <link rel="stylesheet" href="{{asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+@endsection
+
 @section('main-content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
+        <section class="content-header" style="width: 50%;margin: auto">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
@@ -17,13 +21,11 @@
                         </ol>
                     </div>
                 </div>
-            </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.container-fluid -->
         </section>
-
         <!-- Main content -->
-        <section class="content">
-
-            <!-- Default box -->
+        <section class="content" style="width: 50%;margin: auto">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Title</h3>
@@ -41,38 +43,39 @@
                     <div class="card-body">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with default features</h3>
+                                <a  href="{{route('category.create')}}" type="button" class="btn btn-success">Create</a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Rendering engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform(s)</th>
-                                        <th>Engine version</th>
-                                        <th>CSS grade</th>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Edit / Del</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Trident</td>
-                                        <td>Internet
-                                            Explorer 4.0
-                                        </td>
-                                        <td>Win 95+</td>
-                                        <td> 4</td>
-                                        <td>X</td>
-                                    </tr>
+                                     @foreach($categories as $category)
+                                         <tr>
+                                             <td>{{ $category->id }}</td>
+                                             <td>{{ $category->name }}</td>
+                                             <td style="display: flex;justify-content: space-around;align-items: center">
+                                                 <a href="{{ route('category.edit', $category->id ) }}">
+                                                     <img src="{{asset('images/edit.svg')}}" style="width: 20px;">
+                                                 </a>
+                                                 <a href="#">
+                                                     <img src="{{asset('images/trash.svg')}}" style="width: 20px;">
+                                                 </a>
+                                             </td>
+                                         </tr>
+                                     @endforeach
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th>Rendering engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform(s)</th>
-                                        <th>Engine version</th>
-                                        <th>CSS grade</th>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Edit / Del</th>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -161,4 +164,7 @@
             };
         })();
     </script>
+@endsection
+@section('footerSection')
+
 @endsection

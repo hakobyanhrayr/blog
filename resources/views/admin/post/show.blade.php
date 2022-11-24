@@ -1,5 +1,9 @@
 @extends('admin.layouts.app')
 
+@section('headSection')
+    <link rel="stylesheet" href="{{asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+@endsection
+
 @section('main-content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -41,38 +45,50 @@
                     <div class="card-body">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with default features</h3>
+                                <a  href="{{route('post.create')}}" type="button" class="btn btn-success">Create</a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Rendering engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform(s)</th>
-                                        <th>Engine version</th>
-                                        <th>CSS grade</th>
+                                        <th>ID</th>
+                                        <th>SubTitle</th>
+                                        <th>Title</th>
+                                        <th>Body</th>
+                                        <td>Edit / Del</td>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Trident</td>
-                                        <td>Internet
-                                            Explorer 4.0
-                                        </td>
-                                        <td>Win 95+</td>
-                                        <td> 4</td>
-                                        <td>X</td>
-                                    </tr>
+                                     @foreach($posts as $post)
+                                         <tr>
+                                             <td>{{ $post->id }}</td>
+                                             <td>{{ $post->subtitle }}</td>
+{{--                                             <td>{{ $post->slug }}</td>--}}
+                                             <td>{{$post->title}}</td>
+                                             <td>{{$post->body}}</td>
+                                             <td style="display: flex;justify-content: space-around;align-items: center">
+                                                 <a href="{{ route('post.edit', $post->id) }}">
+                                                     <img src="{{asset('images/edit.svg')}}" style="width: 20px;">
+                                                 </a>
+                                                 <form action="{{ route('post.destroy', $post->id )}}" method="POST">
+                                                     @csrf
+                                                     @method('DELETE')
+                                                     <button type="submit" style="border: none">
+                                                         <img src="{{asset('images/trash.svg')}}" style="width: 20px;">
+                                                     </button>
+                                                 </form>
+                                             </td>
+                                         </tr>
+                                     @endforeach
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th>Rendering engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform(s)</th>
-                                        <th>Engine version</th>
-                                        <th>CSS grade</th>
+                                        <th>ID</th>
+                                        <th>SubTitle</th>
+                                        <th>Title</th>
+                                        <th>Body</th>
+                                        <td>Edit / Del</td>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -90,9 +106,6 @@
             </div>
         </section>
     </div>
-    {{------------    --}}
-    <script src="{{asset('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
     {{--    --------}}
     <script src="admin/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
@@ -106,11 +119,11 @@
     <script src="{{asset('admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
     <script src="{{asset('admin/plugins/jszip/jszip.min.js')}}"></script>
     <script src="{{asset('admin/plugins/pdfmake/pdfmake.min.js')}}"></script>
-        <script src="{{asset('admin/plugins/pdfmake/vfs_fonts.js')}}"></script>
-        <script src="{{asset('admin/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
-        <script src="{{asset('admin/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-        <script src="{{asset('admin/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
-        --------
+    <script src="{{asset('admin/plugins/pdfmake/vfs_fonts.js')}}"></script>
+    <script src="{{asset('admin/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('admin/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{asset('admin/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+    --------
     <script>
         $(function () {
             $("#example1").DataTable({
@@ -164,4 +177,7 @@
             };
         })();
     </script>
+@endsection
+@section('footerSection')
+
 @endsection

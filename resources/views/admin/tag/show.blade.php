@@ -8,7 +8,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
+        <section class="content-header" style="width: 60%;margin: auto">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
@@ -25,7 +25,7 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content" style="width: 60%;margin: auto">
 
             <!-- Default box -->
             <div class="card">
@@ -44,38 +44,43 @@
                 <div class="card-body">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">DataTable with default features</h3>
+                            <a  href="{{route('tag.create')}}" type="button" class="btn btn-success">Create</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Rendering engine</th>
-                                    <th>Browser</th>
-                                    <th>Platform(s)</th>
-                                    <th>Engine version</th>
-                                    <th>CSS grade</th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Edit / Del</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Trident</td>
-                                    <td>Internet
-                                        Explorer 4.0
-                                    </td>
-                                    <td>Win 95+</td>
-                                    <td> 4</td>
-                                    <td>X</td>
-                                </tr>
+                                 @foreach($tags as $tag)
+                                     <tr>
+                                         <td>{{ $tag->id }}</td>
+                                         <td>{{ $tag->name }}</td>
+                                         <td style="display: flex;justify-content: space-around;align-items: center">
+                                             <a href="{{ route('tag.edit', $tag->id )}}">
+                                                 <img src="{{asset('images/edit.svg')}}" style="width: 20px;">
+                                             </a>
+                                             <form action="{{ route('tag.destroy', $tag->id )}}" method="POST">
+                                                 @csrf
+                                                 @method('DELETE')
+                                                     <button type="submit" style="border: none">
+                                                         <img src="{{asset('images/trash.svg')}}" style="width: 20px;">
+                                                     </button>
+                                             </form>
+                                         </td>
+                                     </tr>
+                                 @endforeach
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th>Rendering engine</th>
-                                    <th>Browser</th>
-                                    <th>Platform(s)</th>
-                                    <th>Engine version</th>
-                                    <th>CSS grade</th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Edit / Del</th>
                                 </tr>
                                 </tfoot>
                             </table>

@@ -6,6 +6,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCategoryPostsTable extends Migration
 {
+    private const TABLE = 'category_posts';
+
     /**
      * Run the migrations.
      *
@@ -13,13 +15,16 @@ class CreateCategoryPostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_posts', function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('category_id')->unsigned()->index();
             $table->unsignedBigInteger('post_id')->unsigned()->index();
             $table->timestamps();
 
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('post_id')
+                ->references('id')
+                ->on('posts')
+                ->onDelete('cascade');
         });
 
     }
@@ -31,6 +36,6 @@ class CreateCategoryPostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_posts');
+        Schema::dropIfExists(self::TABLE);
     }
 }

@@ -1,5 +1,8 @@
 @extends('admin.layouts.app')
 
+@section('headSection')
+    <link rel="stylesheet" href="{{asset('admin/plugins/select2/css/select2.min.css')}}">
+@endsection
 @section('main-content')
     <div class="wrapper">
         <!-- Content Wrapper. Contains page content -->
@@ -45,14 +48,32 @@
                                 <label for="slug">Post Slug</label>
                                 <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug">
                             </div>
-                            <div class="custom-file mb-4" style="max-width: 180px">
+                            <div class="custom-file mb-3" style="max-width: 180px">
                                 <label class="custom-file-label" for="image">Choose file</label>
                                 <input type="file" name="image" class="custom-file-input" id="image">
                             </div>
-                            <div class="form-check ml-3">
+                            <div class="form-check">
                                 <input type="checkbox" name="publish" class="form-check-input" id="publish">
                                 <label class="form-check-label" for="publish">Publish</label>
                             </div>
+                        </div>
+                        <div class="form-group p-2" data-select2-id="29">
+                            <label class="pl-3">Tag</label>
+                            <select class="form-select m-auto"
+                                    style="width: 100%;" data-select1-id="7" tabindex="-1">
+                                @foreach($tags as $tag)
+                                <option data-select2-id="36">{{ $tag->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group p-2" data-select2-id="29">
+                            <label class="pl-3">Category</label>
+                            <select class="form-select m-auto"
+                                    style="width: 100%;" data-select2-id="7" tabindex="-1">
+                                @foreach($categories as $category)
+                                    <option data-select2-id="36">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -91,30 +112,34 @@
                 </section>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{{route('post.index')}}" type="button" class="btn btn-warning">Back</a>
                 </div>
             </form>
             {{--              --formEnd----}}
         </div>
     </div>
     <!-- ./wrapper -->
-
+    <script src="{{asset('admin/plugins/select2/js/select2.full.min.js')}}"></script>
     <!-- jQuery -->
-    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap 4 -->
-    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- AdminLTE App -->
-    <script src="../../dist/js/adminlte.min.js"></script>
+    <script src="{{asset('admin/dist/js/adminlte.min.js')}}"></script>
     <!-- Summernote -->
-    <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="{{asset('admin/plugins/summernote/summernote-bs4.min.js')}}"></script>
     <!-- CodeMirror -->
-    <script src="../../plugins/codemirror/codemirror.js"></script>
-    <script src="../../plugins/codemirror/mode/css/css.js"></script>
-    <script src="../../plugins/codemirror/mode/xml/xml.js"></script>
-    <script src="../../plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="{{asset('admin/plugins/codemirror/codemirror.js')}}"></script>
+    <script src="{{asset('admin/plugins/codemirror/mode/css/css.js')}}"></script>
+    <script src="{{asset('admin/plugins/codemirror/mode/xml/xml.js')}}"></script>
+    <script src="{{asset('admin/plugins/codemirror/mode/htmlmixed/htmlmixed.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="../../dist/js/demo.js"></script>
+    <script src="{{asset('admin/dist/js/demo.js')}}"></script>
     <!-- Page specific script -->
     <script>
+         $(document).ready(function (){
+             $('.select2').select2()
+         });
         $(function () {
             // Summernote
             $('#summernote').summernote()
