@@ -4,10 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoryPostsTable extends Migration
+class CreatePostCategoriesTable extends Migration
 {
-    private const TABLE = 'category_posts';
-
+    private const TABLE = 'post_categories';
     /**
      * Run the migrations.
      *
@@ -26,7 +25,6 @@ class CreateCategoryPostsTable extends Migration
                 ->on('posts')
                 ->onDelete('cascade');
         });
-
     }
 
     /**
