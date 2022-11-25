@@ -64,9 +64,13 @@
                                                  <a href="{{ route('category.edit', $category->id ) }}">
                                                      <img src="{{asset('images/edit.svg')}}" style="width: 20px;">
                                                  </a>
-                                                 <a href="#">
-                                                     <img src="{{asset('images/trash.svg')}}" style="width: 20px;">
-                                                 </a>
+                                                 <form action="{{ route('category.destroy', $category->id )}}" method="POST">
+                                                     @csrf
+                                                     @method('DELETE')
+                                                     <button type="submit" style="border: none">
+                                                         <img src="{{asset('images/trash.svg')}}" style="width: 20px;">
+                                                     </button>
+                                                 </form>
                                              </td>
                                          </tr>
                                      @endforeach

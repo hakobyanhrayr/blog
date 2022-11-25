@@ -60,18 +60,18 @@
                         <div class="form-group p-2" data-select2-id="29">
                             <label class="pl-3">Tag</label>
                             <select class="form-select m-auto"
-                                    style="width: 100%;" data-select1-id="7" tabindex="-1">
+                                    style="width: 100%;" data-select1-id="7" tabindex="-1" name="tag">
                                 @foreach($tags as $tag)
-                                <option data-select2-id="36">{{ $tag->name }}</option>
+                                <option data-select2-id="36" value="{{$tag->id}}" name="tag">{{ $tag->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group p-2" data-select2-id="29">
                             <label class="pl-3">Category</label>
                             <select class="form-select m-auto"
-                                    style="width: 100%;" data-select2-id="7" tabindex="-1">
+                                    style="width: 100%;" data-select2-id="7" tabindex="-1" name="category">
                                 @foreach($categories as $category)
-                                    <option data-select2-id="36">{{ $category->name }}</option>
+                                    <option data-select2-id="36" value="{{$category->id}}" name="category">{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>

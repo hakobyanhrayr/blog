@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostCategoriesTable extends Migration
+class CreateCategoryPostsTable extends Migration
 {
-    private const TABLE = 'post_categories';
+    private const TABLE = 'category_posts';
     /**
      * Run the migrations.
      *

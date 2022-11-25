@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class PostController extends Controller
@@ -22,8 +23,8 @@ class PostController extends Controller
      */
     public function index()
     {
-//        dd('Posts');
         $posts = Post::all();
+
        return view('admin.post.show',compact('posts'));
     }
 
@@ -43,10 +44,24 @@ class PostController extends Controller
      * @param PostRequest $request
      * @return RedirectResponse
      */
-    public function store(PostRequest $request)
+    public function store(PostRequest $request): RedirectResponse
     {
-       $post = Post::create($request->validated());
+//          dd($request->all());
 
+       $post = Post::query()->create($request->only([
+           'title',
+           'subtitle',
+           'slug',
+           'body',
+           'publish',
+           'status',
+       ]));
+
+        $post->tags()->sync($request->tag);
+
+        $post->categories()->sync($request->category);
+
+//        dd($post->toArray());
         return redirect()->route('post.index');
     }
 
@@ -88,15 +103,32 @@ class PostController extends Controller
     {
         $post = Post::query()->find($id);
 
-        $post->update($request->validated());
+
+        $this->validate($request,[
+            'title'=>'required',
+            'subtitle'=>'required',
+            'slug'=>'required',
+            'body'=>'required',
+        ]);
+
+////        if ($request->hasFile('image')) {
+//            $imageName = $request->image->store('public');
+////        }else{
+////            return 'No';
+////        }
+//
+//
+//        $post->image = $imageName;
+        $post->title = $request->title;
+        $post->subtitle = $request->subtitle;
+        $post->slug = $request->slug;
+        $post->body = $request->body;
 
         $post->tags()->sync($request->tags);
-
         $post->categories()->sync($request->categories);
 
         $post->save();
-
-        dd($request->toArray());
+//        dd($request->toArray());
 
         return redirect()->route('post.index');
     }
