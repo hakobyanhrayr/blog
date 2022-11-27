@@ -34,46 +34,55 @@
                             <h3 class="card-title">Titles</h3>
                         </div>
                         @include('includes.messages')
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="title">Post Title</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Title">
-{{--                                <span>@error('title'){{$message}}</span>--}}
+                        <div class="box-wrap col-lg-12" style="display: flex">
+                            <div class="box-items col-lg-6">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="title">Post Title</label>
+                                        <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+                                        {{--                                <span>@error('title'){{$message}}</span>--}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="subtitle">Post SubTitle</label>
+                                        <input type="text" name="subtitle" class="form-control" id="title" placeholder="SubTitle">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="slug">Post Slug</label>
+                                        <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="subtitle">Post SubTitle</label>
-                                <input type="text" name="subtitle" class="form-control" id="title" placeholder="SubTitle">
+                            <div class="box-items col-lg-6 mt-5">
+                                <div class="form-group  " data-select2-id="29">
+                                    <div class="custom-file " style="max-width: 180px">
+                                        <label class="custom-file-label" for="image">Choose file</label>
+                                        <input type="file" name="image" class="custom-file-input" id="image">
+                                    </div>
+                                    <div class="form-check mt-2 ml-3">
+                                        <label class="form-check-label" for="status">
+                                            <input type="checkbox" name="status" value="1">
+                                            Publish
+                                        </label>
+
+                                    </div>
+                                    <label class="pl-3">Tag</label>
+                                    <select class="form-select m-auto"
+                                            style="width: 100%;" data-select1-id="7" tabindex="-1" name="tag">
+                                        @foreach($tags as $tag)
+                                            <option data-select2-id="36" value="{{$tag->id}}" name="tag">{{ $tag->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group  " data-select2-id="29">
+                                    <label class="pl-3">Category</label>
+                                    <select class="form-select m-auto"
+                                            style="width: 100%;" data-select2-id="7" tabindex="-1" name="category">
+                                        @foreach($categories as $category)
+                                            <option data-select2-id="36" value="{{$category->id}}" name="category">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="slug">Post Slug</label>
-                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug">
-                            </div>
-                            <div class="custom-file mb-3" style="max-width: 180px">
-                                <label class="custom-file-label" for="image">Choose file</label>
-                                <input type="file" name="image" class="custom-file-input" id="image">
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" name="publish" class="form-check-input" id="publish">
-                                <label class="form-check-label" for="publish">Publish</label>
-                            </div>
-                        </div>
-                        <div class="form-group p-2" data-select2-id="29">
-                            <label class="pl-3">Tag</label>
-                            <select class="form-select m-auto"
-                                    style="width: 100%;" data-select1-id="7" tabindex="-1" name="tag">
-                                @foreach($tags as $tag)
-                                <option data-select2-id="36" value="{{$tag->id}}" name="tag">{{ $tag->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group p-2" data-select2-id="29">
-                            <label class="pl-3">Category</label>
-                            <select class="form-select m-auto"
-                                    style="width: 100%;" data-select2-id="7" tabindex="-1" name="category">
-                                @foreach($categories as $category)
-                                    <option data-select2-id="36" value="{{$category->id}}" name="category">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
                         </div>
                         <!-- /.card-body -->
                     </div>

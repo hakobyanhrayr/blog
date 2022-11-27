@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\user\Post;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 
-class PostController extends Controller
+class UserPostController extends Controller
 {
     /**
      * @return Application|Factory|View
      */
     public function index()
     {
-        return view('user.post');
+        //
     }
 
     /**
@@ -42,12 +43,14 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(int $id)
     {
-        //
+       $post = Post::query()->findOrFail($id);
+
+        return view('user.post',compact('post'));
     }
 
     /**

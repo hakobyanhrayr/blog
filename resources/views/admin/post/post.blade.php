@@ -49,8 +49,11 @@
                              <input type="file" name="image" class="custom-file-input" id="image">
                          </div>
                          <div class="form-check ml-3">
-                             <input type="checkbox" name="publish" class="form-check-input" id="publish">
-                             <label class="form-check-label" for="publish">Publish</label>
+                             <label class="form-check-label" for="status">
+                                 <input type="checkbox" name="status" value="1">
+                                 Publish
+                             </label>
+
                          </div>
                      </div>
                      <!-- /.card-body -->

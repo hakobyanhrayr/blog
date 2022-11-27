@@ -15,7 +15,8 @@ class Post extends Model
         'title',
         'subtitle',
         'slug',
-        'body'
+        'body',
+        'status'
     ];
 
     public function tags(): BelongsToMany
@@ -27,7 +28,7 @@ class Post extends Model
     {
         return $this->belongsToMany(Category::class,'category_posts')->withTimestamps();
     }
-//
+
 //    public function getRouteKeyName(): string
 //    {
 //        return 'slug';

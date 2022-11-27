@@ -46,8 +46,7 @@ class PostController extends Controller
      */
     public function store(PostRequest $request): RedirectResponse
     {
-//          dd($request->all());
-
+//       dd($request->toArray());
        $post = Post::query()->create($request->only([
            'title',
            'subtitle',
@@ -61,7 +60,10 @@ class PostController extends Controller
 
         $post->categories()->sync($request->category);
 
-//        dd($post->toArray());
+        $post->status = $request->status;
+
+        $post->save();
+
         return redirect()->route('post.index');
     }
 
@@ -84,7 +86,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::query()->find($id);
+//        $post = Post::query()->find($id);
+        $post = Post::with('tags','categories')->where('id',$id)->first();
 
         $tags = Tag::all();
 
@@ -101,7 +104,7 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, $id): RedirectResponse
     {
-        $post = Post::query()->find($id);
+
 
 
         $this->validate($request,[
@@ -117,17 +120,18 @@ class PostController extends Controller
 ////            return 'No';
 ////        }
 //
-//
+        $post = Post::query()->find($id);
 //        $post->image = $imageName;
         $post->title = $request->title;
         $post->subtitle = $request->subtitle;
         $post->slug = $request->slug;
         $post->body = $request->body;
+        $post->status = $request->status;
+        $post->save();
 
         $post->tags()->sync($request->tags);
         $post->categories()->sync($request->categories);
 
-        $post->save();
 //        dd($request->toArray());
 
         return redirect()->route('post.index');

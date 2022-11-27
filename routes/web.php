@@ -42,11 +42,15 @@
 
 
 //---User---
+use App\Http\Controllers\User\UserPostController;
+
 Route::resource('/',User\HomeController::class);
 //
 Route::group(['prefix' => 'user'],function(){
-//    Route::resource('/',User\HomeController::class);
-    Route::resource('/post',User\PostController::class);
+//    Route::resource('/blog',User\ContentController::class);
+//    Route::resource('/post',User\UserPostController::class);
+//    Route::resource('/post',User\UserPostController::class);
+    Route::resource('/posted',User\UserPostController::class);
 });
 
 //---Admin---

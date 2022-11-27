@@ -56,58 +56,86 @@
                             <h3 class="card-title">Titles</h3>
                         </div>
                         @include('includes.messages')
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="title">Post Title</label>
-                                <input type="text"
-                                       value="{{ $post->title }}"
-                                       name="title" class="form-control" id="title" placeholder="Title">
-{{--                                <span>@error('title'){{$message}}</span>--}}
+                        <div class="box-wrap col-lg-12" style="display: flex">
+                            <div class="box-items col-lg-6">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="title">Post Title</label>
+                                        <input type="text"
+                                               value="{{ $post->title }}"
+                                               name="title" class="form-control" id="title" placeholder="Title">
+                                        {{--                                <span>@error('title'){{$message}}</span>--}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="subtitle">Post SubTitle</label>
+                                        <input type="text"
+                                               value="{{ $post->subtitle }}"
+                                               name="subtitle" class="form-control" id="title" placeholder="SubTitle">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="slug">Post Slug</label>
+                                        <input type="text"
+                                               value="{{ $post->slug }}"
+                                               name="slug" class="form-control" id="slug" placeholder="Slug">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="subtitle">Post SubTitle</label>
-                                <input type="text"
-                                       value="{{ $post->subtitle }}"
-                                       name="subtitle" class="form-control" id="title" placeholder="SubTitle">
-                            </div>
-                            <div class="form-group">
-                                <label for="slug">Post Slug</label>
-                                <input type="text"
-                                       value="{{ $post->slug }}"
-                                       name="slug" class="form-control" id="slug" placeholder="Slug">
-                            </div>
-                            <div class="custom-file mb-3" style="max-width: 180px">
-                                <label class="custom-file-label" for="image">Choose file</label>
-                                <input type="file"
-                                       value="{{ $post->image }}"
-                                       name="image" class="custom-file-input" id="image">
-                            </div>
-                            <div class="form-check">
-{{--                                <input type="checkbox" name="publish" class="form-check-input" id="publish">--}}
-                                <label class="form-check-label" for="publish">
-                                    <input type="checkbox" name="status" value="1" @if ($post->status == 1)@endif>
-                                        {{'checked'}}
-                                </label>
+                            <div class="box-items col-lg-6">
+                                <div class="custom-file mb-3 mt-5" style="max-width: 180px">
+                                    <label class="custom-file-label" for="image">Choose file</label>
+                                    <input type="file"
+                                           value="{{ $post->image }}"
+                                           name="image" class="custom-file-input" id="image">
+                                </div>
+                                <div class="form-check">
+                                    {{--                                <input type="checkbox" name="publish" class="form-check-input" id="publish">--}}
+                                    <label class="form-check-label" for="status">
+                                        <input type="checkbox" name="status" value="1" @if($post->status == 1)
+                                            {{'checked'}}
+                                                @endif>
+                                        Publish
+                                    </label>
+                                </div>
+                                <div class="form-group p-2" data-select2-id="29">
+                                    <label class="pl-3">Tag</label>
+                                    <select class="form-select m-auto"
+                                            style="width: 100%;" data-select1-id="7" tabindex="-1" name="tags">
+                                        @foreach($tags as $tag)
+                                            <option data-select2-id="36"
+                                                    value="{{$tag->id}}"
+                                             @foreach($post->tags as $postTag)
+                                                 @if($postTag->id == $tag->id)
+                                                     selected
+                                                     @endif
+                                             @endforeach
+                                            >
+                                                {{ $tag->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group p-2" data-select2-id="29">
+                                    <label class="pl-3">Category</label>
+                                    <select class="form-select m-auto"
+                                            style="width: 100%;" data-select2-id="7" tabindex="-1" name="categories">
+                                        @foreach($categories as $category)
+                                            <option data-select2-id="36"
+                                                    value="{{ $category->id }}"
+                                                    @foreach($post->categories as $categoryTag)
+                                                        @if($categoryTag->id == $category->id)
+                                                            selected
+                                                    @endif
+                                                    @endforeach
+                                            >
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group p-2" data-select2-id="29">
-                            <label class="pl-3">Tag</label>
-                            <select class="form-select m-auto"
-                                    style="width: 100%;" data-select1-id="7" tabindex="-1" name="tags[]">
-                                @foreach($tags as $tag)
-                                    <option data-select2-id="36" value="{{$tag->id}}">{{ $tag->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group p-2" data-select2-id="29">
-                            <label class="pl-3">Category</label>
-                            <select class="form-select m-auto"
-                                    style="width: 100%;" data-select2-id="7" tabindex="-1" name="categories[]">
-                                @foreach($categories as $category)
-                                    <option data-select2-id="36" value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+
+
                         <!-- /.card-body -->
                     </div>
                     <!-- Default box -->
@@ -134,7 +162,7 @@
                                             <!-- /.card-header -->
                                             <div class="card-body">
                                               <textarea id="summernote" name="body" class="textarea"  rows="15" placeholder="Place some text here" style="resize: none;outline: none;width: 98%">
-
+                                                         {{$post->body}}
                                               </textarea>
                                             </div>
                                         </div>

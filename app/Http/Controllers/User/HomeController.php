@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\user\Post;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -15,8 +16,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-//        dd('home controller');
-        return view('user.blog');
+        $posts = Post::all();
+
+        return view('user.blog',compact('posts'));
     }
 
     /**
