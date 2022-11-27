@@ -46,6 +46,7 @@ class PostController extends Controller
      */
     public function store(PostRequest $request): RedirectResponse
     {
+        $imageName = '';
 //       dd($request->toArray());
        $post = Post::query()->create($request->only([
            'title',
@@ -54,7 +55,14 @@ class PostController extends Controller
            'body',
            'publish',
            'status',
+           'image'
        ]));
+
+        if ($request->hasFile('image')){
+            $imageName = $request->image->store('public/images');
+        }
+
+        $post->image = $imageName;
 
         $post->tags()->sync($request->tag);
 
@@ -112,24 +120,31 @@ class PostController extends Controller
             'subtitle'=>'required',
             'slug'=>'required',
             'body'=>'required',
+            'image'=>'required',
         ]);
 
-////        if ($request->hasFile('image')) {
-//            $imageName = $request->image->store('public');
-////        }else{
-////            return 'No';
-////        }
-//
+        if ($request->hasFile('image')){
+            $imageName = $request->image->store('public/images');
+        }
+
         $post = Post::query()->find($id);
-//        $post->image = $imageName;
+
+        $post->image = $imageName;
+
         $post->title = $request->title;
+
         $post->subtitle = $request->subtitle;
+
         $post->slug = $request->slug;
+
         $post->body = $request->body;
+
         $post->status = $request->status;
+
         $post->save();
 
         $post->tags()->sync($request->tags);
+
         $post->categories()->sync($request->categories);
 
 //        dd($request->toArray());

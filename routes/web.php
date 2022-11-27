@@ -47,10 +47,8 @@ use App\Http\Controllers\User\UserPostController;
 Route::resource('/',User\HomeController::class);
 //
 Route::group(['prefix' => 'user'],function(){
-//    Route::resource('/blog',User\ContentController::class);
-//    Route::resource('/post',User\UserPostController::class);
-//    Route::resource('/post',User\UserPostController::class);
     Route::resource('/posted',User\UserPostController::class);
+    Route::get('/blog','User\ContentController@category')->name('category');
 });
 
 //---Admin---
@@ -67,3 +65,6 @@ Route::group(['prefix' => 'admin'],function(){
 //    ---Category--
     Route::resource('/category',Admin\CategoryController::class);
 });
+//    Route::resource('/blog',User\ContentController::class);
+//    Route::resource('/post',User\UserPostController::class);
+//    Route::resource('/post',User\UserPostController::class);

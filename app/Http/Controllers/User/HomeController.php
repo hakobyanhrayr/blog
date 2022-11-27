@@ -16,7 +16,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+//        $posts = Post::all();
+        $posts = Post::where('status',1)->paginate(2);
 
         return view('user.blog',compact('posts'));
     }

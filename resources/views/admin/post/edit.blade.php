@@ -47,7 +47,7 @@
             </section>
             <!-- Main content -->
             {{--            --formStart----}}
-            <form class="form-group"  method="POST" action="{{route('post.update', $post->id)}}">
+            <form class="form-group"  method="POST" action="{{route('post.update', $post->id)}}" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <section class="content">
