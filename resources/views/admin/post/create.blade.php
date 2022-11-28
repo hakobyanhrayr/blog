@@ -26,7 +26,7 @@
             </section>
             <!-- Main content -->
             {{--            --formStart----}}
-            <form class="form-group"  method="POST" action="{{route('post.store')}}">
+            <form class="form-group"  method="POST" action="{{route('post.store')}}"  enctype="multipart/form-data">
                 @csrf
                 <section class="content">
                     <div class="card card-primary">

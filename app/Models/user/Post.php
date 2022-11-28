@@ -16,7 +16,8 @@ class Post extends Model
         'subtitle',
         'slug',
         'body',
-        'status'
+        'status',
+        'image'
     ];
 
     public function tags(): BelongsToMany

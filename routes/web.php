@@ -64,6 +64,8 @@ Route::group(['prefix' => 'admin'],function(){
     Route::resource('/tag',Admin\TagController::class);
 //    ---Category--
     Route::resource('/category',Admin\CategoryController::class);
+
+//    Route::post('/post/create','User\FileController@upload')->name('upload');
 });
 //    Route::resource('/blog',User\ContentController::class);
 //    Route::resource('/post',User\UserPostController::class);

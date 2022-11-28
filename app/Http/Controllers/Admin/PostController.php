@@ -46,9 +46,7 @@ class PostController extends Controller
      */
     public function store(PostRequest $request): RedirectResponse
     {
-        $imageName = '';
-//       dd($request->toArray());
-       $post = Post::query()->create($request->only([
+        $post = Post::query()->create($request->only([
            'title',
            'subtitle',
            'slug',
@@ -58,11 +56,9 @@ class PostController extends Controller
            'image'
        ]));
 
-        if ($request->hasFile('image')){
-            $imageName = $request->image->store('public/images');
-        }
+        $path = $request->file('image')->store('public/images');
 
-        $post->image = $imageName;
+        $post->image = $path;
 
         $post->tags()->sync($request->tag);
 
@@ -94,7 +90,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-//        $post = Post::query()->find($id);
+      // $post = Post::query()->find($id);
         $post = Post::with('tags','categories')->where('id',$id)->first();
 
         $tags = Tag::all();
@@ -112,8 +108,6 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, $id): RedirectResponse
     {
-
-
 
         $this->validate($request,[
             'title'=>'required',
