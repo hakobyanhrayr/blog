@@ -9,10 +9,21 @@ use App\Models\user\Tag;
 
 class ContentController extends Controller
 {
-    public function category(Category $category,$id)
+    public function category(Category $category)
     {
 //         $category = Category::query()->findOrFail($id);
-//         $posts = $category->posts();
-//        return view('user.blog',compact('posts'));
+        $posts = $category->posts();
+        dd('category');
+        return view('user.pivot',compact('posts'));
+//        dd(111111111);
+    }
+
+    public function tag(Tag $tag)
+    {
+//         $category = Category::query()->findOrFail($id);
+        $posts = $tag->posts();
+        dd($tag->posts());
+        return view('user.pivot',compact('posts'));
+        dd(111111111);
     }
 }

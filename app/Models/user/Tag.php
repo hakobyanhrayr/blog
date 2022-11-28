@@ -15,7 +15,7 @@ class Tag extends Model
     ];
 
 
-    public function post(): LengthAwarePaginator
+    public function posts(): LengthAwarePaginator
     {
         return $this->belongsToMany(Post::class,'post_tags')->orderBy('created_at','DESC')->paginate(5);
     }

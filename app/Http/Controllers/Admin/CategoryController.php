@@ -14,6 +14,16 @@ use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     //todo: see cursor()
     /**
      * @return Application|Factory|View

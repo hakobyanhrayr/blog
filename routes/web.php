@@ -42,17 +42,22 @@
 
 
 //---User---
+use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\User\ContentController;
 use App\Http\Controllers\User\UserPostController;
-
+use Illuminate\Support\Facades\Auth;
+//Route::redirect('/home','/');
 Route::resource('/',User\HomeController::class);
 //
 Route::group(['prefix' => 'user'],function(){
     Route::resource('/posted',User\UserPostController::class);
-    Route::get('/blog','User\ContentController@category')->name('category');
+    Route::get('/category',[ContentController::class,'category'])->name('category');
+    Route::get('/tag',[ContentController::class,'tag'])->name('tag');
 });
 
 //---Admin---
-
+//Route::get('admin-login', [LoginController::class,'showLoginForm'])->name('admin.login');
+//,'middleware'=>'auth:admin'
 Route::group(['prefix' => 'admin'],function(){
 //    ---Admin-User--routes--
     Route::resource('/user',Admin\UserController::class);
@@ -64,9 +69,12 @@ Route::group(['prefix' => 'admin'],function(){
     Route::resource('/tag',Admin\TagController::class);
 //    ---Category--
     Route::resource('/category',Admin\CategoryController::class);
+//    ---Admin Auth--
+      Route::get('admin-login', [LoginController::class,'showLoginForm'])->name('admin.login');
 
-//    Route::post('/post/create','User\FileController@upload')->name('upload');
+      Route::post('admin-login', [LoginController::class,'login']);
 });
-//    Route::resource('/blog',User\ContentController::class);
-//    Route::resource('/post',User\UserPostController::class);
-//    Route::resource('/post',User\UserPostController::class);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

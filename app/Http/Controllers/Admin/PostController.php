@@ -10,14 +10,22 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class PostController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     /**
      * @return Application|Factory|View
      */
@@ -56,7 +64,11 @@ class PostController extends Controller
            'image'
        ]));
 
-        $path = $request->file('image')->store('public/images');
+//        $path = $request->file('image')->store('public/images');
+
+//        $path = Storage::putFile('public/images', $request->file('image'));
+
+        $path = Storage::disk('local')->put('public/images', $request->file('image'));
 
         $post->image = $path;
 
@@ -90,7 +102,6 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-      // $post = Post::query()->find($id);
         $post = Post::with('tags','categories')->where('id',$id)->first();
 
         $tags = Tag::all();
@@ -140,8 +151,6 @@ class PostController extends Controller
         $post->tags()->sync($request->tags);
 
         $post->categories()->sync($request->categories);
-
-//        dd($request->toArray());
 
         return redirect()->route('post.index');
     }
