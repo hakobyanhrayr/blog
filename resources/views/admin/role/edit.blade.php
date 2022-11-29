@@ -10,7 +10,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2 col-lg-offset-3 col-lg-6 m-auto">
                         <div class="col-sm-6">
-                            <h1>Add Admin</h1>
+                            <h1>Role</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -27,46 +27,27 @@
             </section>
             <!-- Main content -->
             <section class="content col-lg-offset-3 col-lg-6 m-auto">
-                <form class="form-group" action="{{route('user.store')}}" method="POST">
+                <form class="form-group" action="{{route('role.update', $role->id)}}" method="post">
+                    @method('PUT')
                     @csrf
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Admin</h3>
+                            <h3 class="card-title">Titles</h3>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="name">User Name</label>
-                                <input type="text" name="name" class="form-control" id="username" placeholder="User Name">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">User Email</label>
-                                <input type="text" name="email" class="form-control" id="email" placeholder="User Email">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">User Password</label>
-                                <input type="text" name="password" class="form-control" id="password" placeholder="User Password">
-                            </div>
-                            <div class="form-group">
-                                <label for="Confirm_password">Confirm_Password</label>
-                                <input type="text" name="confirm_password" class="form-control" id="confirm_password" placeholder="Confirm_Password">
+                                <label for="title">Role Title</label>
+                                <input type="text"
+                                       value="{{ $role->name }}"
+                                       name="name" class="form-control" id="title" placeholder="Role">
                             </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
                     <!-- Default box -->
-                    <div class="form-group" style="display: flex">
-                        @foreach($roles as $role)
-                            <div class="checkbox ml-4" class="col-lg-3">
-                                <lable>
-                                    <input type="checkbox" name="role[]"value="{{ $role->id }}">
-                                      {{ $role->name }}
-                                </lable>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div>
-                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a href="{{route('user.index')}}" type="button" class="btn btn-warning">Back</a>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="{{route('role.index')}}" type="button" class="btn btn-warning">Back</a>
                     </div>
                 </form>
             </section>

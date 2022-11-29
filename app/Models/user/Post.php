@@ -5,6 +5,7 @@ namespace App\Models\user;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
 class Post extends Model
@@ -34,19 +35,19 @@ class Post extends Model
     {
         return 'slug';
     }
-//
-//    public function getCreatedAtAttribute($value): string
-//    {
-//        return Carbon::parse($value)->diffForHumans();
-//    }
-//
-//    public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
-//    {
-//        return $this->hasMany(Like::class);
-//    }
-//
-//    public function getSlugAttribute($value): string
-//    {
-//        return route('post',$value);
-//    }
+
+    public function getCreatedAtAttribute($value): string
+    {
+        return Carbon::parse($value)->diffForHumans();
+    }
+
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function getSlugAttribute($value): string
+    {
+        return route('post',$value);
+    }
 }

@@ -4,10 +4,9 @@ namespace App\Models\admin;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Permission extends Model
 {
     protected $fillable = ['name'];
 
-    protected $table = 'roles';
-
+    protected $table = 'permissions';
 }

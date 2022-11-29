@@ -8,11 +8,11 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
+        <section class="content-header" style="width: 60%;margin: auto">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Admin Lists</h1>
+                        <h1>Roles Show Page</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -25,12 +25,12 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content" style="width: 60%;margin: auto">
 
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Admin</h3>
+                    <h3 class="card-title">Roles</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -42,62 +42,56 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="card-body">
-                        <div class="card">
-                            <div class="card-header">
-                                <a  href="{{ route('user.create') }}" type="button" class="btn btn-success">Add Admin</a>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <td>Edit</td>
-                                        <td>Del</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($users as $user)
-                                        <tr>
-                                            <td>{{ $user->id }}</td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td style="display: flex;justify-content: space-around;align-items: center">
-                                                <a href="#">
-                                                    <img src="{{asset('images/edit.svg')}}" style="width: 20px;">
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <form action="#" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" style="border: none">
-                                                        <img src="{{asset('images/trash.svg')}}" style="width: 20px;">
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <td>Edit</td>
-                                        <td>Del</td>
-                                    </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
+                    <div class="card">
+                        <div class="card-header">
+                            <a  href="{{route('role.create')}}" type="button" class="btn btn-success">Add Role</a>
                         </div>
-                        <!-- /.card -->
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Edit</th>
+                                    <th>Del</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                 @foreach($roles as $role)
+                                     <tr>
+                                         <td>{{ $role->id }}</td>
+                                         <td>{{ $role->name }}</td>
+                                         <td style="display: flex;justify-content: space-around;align-items: center">
+                                             <a href="{{ route('role.edit', $role->id )}}">
+                                                 <img src="{{asset('images/edit.svg')}}" style="width: 20px;">
+                                             </a>
+                                         </td>
+                                         <td>
+                                             <form action="{{ route('role.destroy', $role->id )}}" method="POST">
+                                                 @csrf
+                                                 @method('DELETE')
+                                                 <button type="submit" style="border: none">
+                                                     <img src="{{asset('images/trash.svg')}}" style="width: 20px;">
+                                                 </button>
+                                             </form>
+                                         </td>
+                                     </tr>
+                                 @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Edit</th>
+                                    <th>Del</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
+                    <!-- /.card -->
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

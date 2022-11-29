@@ -45,9 +45,17 @@
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\User\ContentController;
 use App\Http\Controllers\User\UserPostController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\PermissionController;
 use Illuminate\Support\Facades\Auth;
-//Route::redirect('/home','/');
+
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 Route::resource('/',User\HomeController::class);
+
+
+
 //
 Route::group(['prefix' => 'user'],function(){
     Route::resource('/posted',User\UserPostController::class);
@@ -55,26 +63,37 @@ Route::group(['prefix' => 'user'],function(){
     Route::get('/tag',[ContentController::class,'tag'])->name('tag');
 });
 
+
+//    ---Admin Auth--
+Route::get('admin-login', [LoginController::class,'showLoginForm']);
+
+Route::post('admin-login', [LoginController::class,'login'])->name('admin.login');
+
 //---Admin---
-//Route::get('admin-login', [LoginController::class,'showLoginForm'])->name('admin.login');
-//,'middleware'=>'auth:admin'
-Route::group(['prefix' => 'admin'],function(){
+
+Route::group(['prefix' => 'admin','middleware'=>'auth:admin'],function(){
+
 //    ---Admin-User--routes--
     Route::resource('/user',Admin\UserController::class);
+
+    //    ---Admin-User--Roles--routes--
+    Route::resource('/role',Admin\RoleController::class);
+
+    //    ---Admin-User--Roles--routes--
+    Route::resource('/permission',Admin\PermissionController::class);
+
     //    ---Home--routes--
     Route::resource('/home',Admin\HomeController::class);
+
 //    --Post--
     Route::resource('/post',Admin\PostController::class);
+
 //    ---Tag---
     Route::resource('/tag',Admin\TagController::class);
+
 //    ---Category--
     Route::resource('/category',Admin\CategoryController::class);
-//    ---Admin Auth--
-      Route::get('admin-login', [LoginController::class,'showLoginForm'])->name('admin.login');
-
-      Route::post('admin-login', [LoginController::class,'login']);
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
