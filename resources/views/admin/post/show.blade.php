@@ -23,7 +23,9 @@
                 </div>
             </div><!-- /.container-fluid -->
         </section>
-
+        <div  class="row mb-2 m-auto" style="width: 99%">
+            @include('includes.messages')
+        </div>
         <!-- Main content -->
         <section class="content">
 
@@ -64,7 +66,7 @@
                                          <tr>
                                              <td>{{ $post->id }}</td>
                                              <td>{{ $post->subtitle }}</td>
-{{--                                             <td>{{ $post->slug }}</td>--}}
+                                             <td>{{ $post->slug }}</td>
                                              <td>{{$post->title}}</td>
                                              <td>{{$post->body}}</td>
                                              <td style="display: flex;justify-content: space-around;align-items: center">

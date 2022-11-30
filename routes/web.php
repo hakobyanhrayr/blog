@@ -43,6 +43,7 @@
 
 //---User---
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\User\ContentController;
 use App\Http\Controllers\User\UserPostController;
 use App\Http\Controllers\Admin\RoleController;
@@ -63,6 +64,7 @@ Route::group(['prefix' => 'user'],function(){
     Route::get('/tag',[ContentController::class,'tag'])->name('tag');
 });
 
+//    Route::resource('/post',[PostController::class]);
 
 //    ---Admin Auth--
 Route::get('admin-login', [LoginController::class,'showLoginForm']);

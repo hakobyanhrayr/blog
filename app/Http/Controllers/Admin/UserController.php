@@ -30,7 +30,7 @@ class UserController extends Controller
     public function index()
     {
         $users = Admin::all();
-        return view('admin.user.show',compact('users'));
+        return view('admin.user.show', compact('users'));
     }
 
     /**
@@ -40,7 +40,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
 
-        return view('admin.user.create',compact('roles'));
+        return view('admin.user.create', compact('roles'));
     }
 
     /**
@@ -49,15 +49,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-       User::query()->create($request->only([ 'name', 'email', 'password']));
+//        dd(111111111);
+        User::query()->create($request->only(['name', 'email', 'password']));
 
-       return redirect()->route('user.index');
+        return redirect()->route('user.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -66,32 +67,36 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        //
+        $user = User::query()->findOrFail($id);
+
+        $roles = Role::all();
+
+        return view('admin.user.edit', compact('user', 'roles'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
-        //
+        dd(777777);
+
+        $user = User::query()->findOrFail($id);
+
+        $user->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

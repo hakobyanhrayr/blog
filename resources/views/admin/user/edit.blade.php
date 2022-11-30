@@ -10,7 +10,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2 col-lg-offset-3 col-lg-6 m-auto">
                         <div class="col-sm-6">
-                            <h1>Permission</h1>
+                            <h1>Add Admin</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -27,37 +27,46 @@
             </section>
             <!-- Main content -->
             <section class="content col-lg-offset-3 col-lg-6 m-auto">
-                <form class="form-group" action="{{route('permission.update', $permission->id)}}" method="post">
-                    @method('PUT')
+                <form class="form-group" action="{{route('user.store')}}" method="POST">
                     @csrf
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Titles</h3>
+                            <h3 class="card-title">Admin</h3>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="title">Permission Title</label>
-                                <input type="text"
-                                       value="{{ $permission->name }}"
-                                       name="name" class="form-control" placeholder="permission">
+                                <label for="name">User Name</label>
+                                <input type="text" name="name" class="form-control" id="username" placeholder="User Name">
                             </div>
                             <div class="form-group">
-                                <label for="title">Permission For</label>
-                                <select class="form-select m-auto"
-                                        style="width: 100%;" data-select2-id="7" tabindex="-1" name="for">
-                                    <option data-select2-id="36">Select Permission For</option>
-                                    <option data-select2-id="36" value="user">User</option>
-                                    <option data-select2-id="36" value="post">Post</option>
-                                    <option data-select2-id="36" value="other">Other</option>
-                                </select>
+                                <label for="email">User Email</label>
+                                <input type="text" name="email" class="form-control" id="email" placeholder="User Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">User Password</label>
+                                <input type="text" name="password" class="form-control" id="password" placeholder="User Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="Confirm_password">Confirm_Password</label>
+                                <input type="text" name="confirm_password" class="form-control" id="confirm_password" placeholder="Confirm_Password">
                             </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
                     <!-- Default box -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="{{route('permission.index')}}" type="button" class="btn btn-warning">Back</a>
+                    <div class="form-group" style="display: flex">
+                        @foreach($roles as $role)
+                            <div class="checkbox ml-4" class="col-lg-3">
+                                <lable>
+                                    <input type="checkbox" name="role[]"value="{{ $role->id }}">
+                                      {{ $role->name }}
+                                </lable>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        <a href="{{route('user.index')}}" type="button" class="btn btn-warning">Back</a>
                     </div>
                 </form>
             </section>

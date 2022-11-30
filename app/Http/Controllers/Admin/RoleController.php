@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\RoleRequest;
+use App\Models\admin\Permission;
 use App\Models\admin\Role;
+use App\Models\user\Post;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -31,8 +33,10 @@ class RoleController extends Controller
      */
     public function create()
     {
-//        dd('create');
-        return view('admin.role.create');
+        $permissions = Permission::all();
+
+
+        return view('admin.role.create',compact('permissions'));
     }
 
     /**
@@ -45,7 +49,7 @@ class RoleController extends Controller
 
         Role::query()->create($request->validated());
 
-        return redirect()->route('role.index');
+        return redirect()->route('role.index')->with('message','Role update SuccessFully');
     }
 
     /**
@@ -65,7 +69,9 @@ class RoleController extends Controller
     {
         $role = Role::query()->findOrFail($id);
 
-        return view('admin.role.edit',compact('role'));
+        $permissions = Permission::all();
+
+        return view('admin.role.edit',compact('role','permissions'));
     }
 
     /**
@@ -73,11 +79,16 @@ class RoleController extends Controller
      * @param $id
      * @return RedirectResponse
      */
-    public function update(RoleRequest $request, $id): RedirectResponse
+    public function update(RoleRequest $request, $id)
     {
+//        dd($request->all());
         $role = Role::query()->findOrFail($id);
 
         $role->update($request->validated());
+
+        $role->permissions()->sync($request->permission);
+
+        $role->save();
 
         return redirect()->route('role.index');
     }

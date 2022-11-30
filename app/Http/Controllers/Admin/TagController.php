@@ -50,7 +50,7 @@ class TagController extends Controller
     {
         Tag::create($request->validated());
 
-       return redirect()->route('tag.index');
+       return redirect()->route('tag.index')->with('message','Tag update SuccessFully');
     }
 
     /**

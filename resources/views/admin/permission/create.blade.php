@@ -36,6 +36,16 @@
                                 <label for="title">Permission</label>
                                 <input type="text" name="name" class="form-control" id="permission" placeholder="permission">
                             </div>
+                            <div class="form-group">
+                                <label for="title">Permission For</label>
+                                <select class="form-select m-auto"
+                                        style="width: 100%;" data-select2-id="7" tabindex="-1" name="for">
+                                        <option data-select2-id="36">Select Permission For</option>
+                                        <option data-select2-id="36" value="user">User</option>
+                                        <option data-select2-id="36" value="post">Post</option>
+                                        <option data-select2-id="36" value="other">Other</option>
+                                </select>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>

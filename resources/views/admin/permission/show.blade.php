@@ -55,6 +55,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>For</th>
                                     <th>Edit</th>
                                     <th>Del</th>
                                 </tr>
@@ -64,6 +65,7 @@
                                      <tr>
                                          <td>{{ $permission->id }}</td>
                                          <td>{{ $permission->name }}</td>
+                                         <td>{{ $permission->for }}</td>
                                          <td style="display: flex;justify-content: space-around;align-items: center">
                                              <a href="{{ route('permission.edit', $permission->id )}}">
                                                  <img src="{{asset('images/edit.svg')}}" style="width: 20px;">
@@ -85,6 +87,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>For</th>
                                     <th>Edit</th>
                                     <th>Del</th>
                                 </tr>

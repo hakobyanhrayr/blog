@@ -27,7 +27,7 @@ class PostRequest extends FormRequest
             "title" => "required|max:255",
             "subtitle" => "required|max:100",
             "slug" => "required|max:100",
-//            "image" => "nullable",
+            "image" => "nullable",
             "body" => "required",
         ];
     }

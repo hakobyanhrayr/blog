@@ -31,23 +31,23 @@ class Post extends Model
         return $this->belongsToMany(Category::class,'category_posts')->withTimestamps();
     }
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
+//    public function getRouteKeyName(): string
+//    {
+//        return 'slug';
+//    }
 
-    public function getCreatedAtAttribute($value): string
-    {
-        return Carbon::parse($value)->diffForHumans();
-    }
+//    public function getCreatedAtAttribute($value): string
+//    {
+//        return Carbon::parse($value)->diffForHumans();
+//    }
 
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
     }
 
-    public function getSlugAttribute($value): string
-    {
-        return route('post',$value);
-    }
+//    public function getSlugAttribute($value): string
+//    {
+//        return route('post',$value);
+//    }
 }

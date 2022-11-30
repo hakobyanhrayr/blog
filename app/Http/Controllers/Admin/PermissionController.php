@@ -40,6 +40,7 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request): RedirectResponse
     {
+//        dd($request->validated());
         Permission::create($request->validated());
 
         return redirect()->route('permission.index')->with('message','Permission update SuccessFully');
@@ -68,10 +69,8 @@ class PermissionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param PermissionRequest $request
+     * @param $id
      * @return RedirectResponse
      */
     public function update(PermissionRequest $request, $id)

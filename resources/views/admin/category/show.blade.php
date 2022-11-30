@@ -24,6 +24,9 @@
             </div>
             <!-- /.container-fluid -->
         </section>
+        <div  class="row mb-2 m-auto" style="width: 50%">
+            @include('includes.messages')
+        </div>
         <!-- Main content -->
         <section class="content" style="width: 50%;margin: auto">
             <div class="card">

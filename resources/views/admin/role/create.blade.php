@@ -2,6 +2,7 @@
 
 
 @section('main-content')
+{{--    @dd($permissions->toArray())--}}
     <div class="wrapper">
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -14,8 +15,6 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-{{--                                <li class="breadcrumb-item"><a href="#">Home</a></li>--}}
-{{--                                <li class="breadcrumb-item active">Blank Page</li>--}}
                             </ol>
                         </div>
                     </div>
@@ -36,14 +35,61 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="title">Roles Title</label>
-                                <input type="text" name="name" class="form-control" id="title" placeholder="Tag">
+                                <input type="text" name="name" class="form-control" id="title" placeholder="Role">
                             </div>
+                           <div style="display:flex;justify-content: space-around;width: 70%;">
+                               <div class="form-check ml-2">
+                                   <label class="form-check-label mb-2" for="name">
+                                       <b>Post Permissions</b>
+                                   </label>
+                                   @foreach($permissions as $permission)
+                                       @if($permission->for == 'post')
+                                          <div class="form-check ml-2">
+                                              <label class="form-check-label" for="name">
+                                                  <input class="form-check-input" type="checkbox" name="permission[]" value="{{ $permission->id }}">
+                                                   {{ $permission->name }}
+                                              </label>
+                                          </div>
+                                       @endif
+                                   @endforeach
+                               </div>
+                               <div class="form-check">
+                                   <label class="form-check-label mb-2" for="name">
+                                       <b>User Permissions</b>
+                                   </label>
+                                   @foreach($permissions as $permission)
+                                       @if($permission->for == 'user')
+                                           <div class="form-check ml-2">
+                                               <label class="form-check-label" for="name">
+                                                   <input class="form-check-input" type="checkbox" name="permission[]" value="{{ $permission->id }}">
+                                                   {{ $permission->name }}
+                                               </label>
+                                           </div>
+                                       @endif
+                                   @endforeach
+                               </div>
+                               <div class="form-check">
+                                   <label class="form-check-label mb-2" for="name">
+                                      <b>Other Permissions</b>
+                                   </label>
+                                   @foreach($permissions as $permission)
+                                       @if($permission->for == 'other')
+                                           <div class="form-check ml-2">
+                                               <label class="form-check-label" for="name">
+                                                   <input class="form-check-input" type="checkbox" name="permission[]" value="{{ $permission->id }}">
+                                                   {{ $permission->name }}
+                                               </label>
+                                           </div>
+                                       @endif
+                                   @endforeach
+                               </div>
+                           </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
                     <!-- Default box -->
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary mr-3">Submit</button>
                         <a href="{{route('tag.index')}}" type="button" class="btn btn-warning">Back</a>
                     </div>
                 </form>

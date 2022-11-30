@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class PostController extends Controller
@@ -102,8 +103,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::with('tags','categories')->where('id',$id)->first();
-
+        $post= Post::with('tags','categories')->where('id',$id)->first();
+//        $post = Post::query()->findOrFail($id);
         $tags = Tag::all();
 
         $categories = Category::all();
@@ -116,43 +117,49 @@ class PostController extends Controller
      * @param PostRequest $request
      * @param $id
      * @return RedirectResponse
+     * @throws ValidationException
      */
     public function update(PostRequest $request, $id): RedirectResponse
     {
 
-        $this->validate($request,[
-            'title'=>'required',
-            'subtitle'=>'required',
-            'slug'=>'required',
-            'body'=>'required',
-            'image'=>'required',
-        ]);
+//        $this->validate($request,[
+//            'title'=>'required',
+//            'subtitle'=>'required',
+//            'slug'=>'required',
+//            'body'=>'required',
+//            'image'=>'required',
+//        ]);
+
+        $data = $request->validated();
 
         if ($request->hasFile('image')){
-            $imageName = $request->image->store('public/images');
+//            $imageName =
+                $request->image->store('public/images');
         }
 
-        $post = Post::query()->find($id);
+//        $post = Post::query()->find($id);
+        $post = Post::query()->find($id)->update($data);
 
-        $post->image = $imageName;
+//        $post->image = $imageName;
+//
+//        $post->title = $request->title;
+//
+//        $post->subtitle = $request->subtitle;
+//
+//        $post->slug = $request->slug;
+//
+//        $post->body = $request->body;
+//
+//        $post->status = $request->status;
 
-        $post->title = $request->title;
-
-        $post->subtitle = $request->subtitle;
-
-        $post->slug = $request->slug;
-
-        $post->body = $request->body;
-
-        $post->status = $request->status;
-
-        $post->save();
 
         $post->tags()->sync($request->tags);
 
         $post->categories()->sync($request->categories);
 
-        return redirect()->route('post.index');
+        $post->save();
+
+        return redirect()->route('post.index')->with('message','Post update SuccessFully');
     }
 
     /**

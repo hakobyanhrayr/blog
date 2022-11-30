@@ -66,7 +66,7 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td style="display: flex;justify-content: space-around;align-items: center">
-                                                <a href="#">
+                                                <a href="{{ route('user.edit', $user->id) }}">
                                                     <img src="{{asset('images/edit.svg')}}" style="width: 20px;">
                                                 </a>
                                             </td>

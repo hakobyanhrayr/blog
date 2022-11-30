@@ -24,6 +24,7 @@
 {{--    <!-- Theme style -->--}}
 {{--    <link rel="stylesheet" href="{{asset('admin//dist/css/adminlte.min.css')}}">--}}
 {{--@endsection--}}
+
 @section('main-content')
     <div class="wrapper">
         <!-- Content Wrapper. Contains page content -->
@@ -47,7 +48,8 @@
             </section>
             <!-- Main content -->
             {{--            --formStart----}}
-            <form class="form-group"  method="POST" action="{{route('post.update', $post->id)}}" enctype="multipart/form-data">
+
+            <form class="form-group"  method="POST" action="{{ route('post.update', $post->id) }}" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <section class="content">
@@ -64,7 +66,7 @@
                                         <input type="text"
                                                value="{{ $post->title }}"
                                                name="title" class="form-control" id="title" placeholder="Title">
-                                        {{--                                <span>@error('title'){{$message}}</span>--}}
+                                        {{-- <span>@error('title'){{$message}}</span>--}}
                                     </div>
                                     <div class="form-group">
                                         <label for="subtitle">Post SubTitle</label>
@@ -88,7 +90,7 @@
                                            name="image" class="custom-file-input" id="image">
                                 </div>
                                 <div class="form-check">
-                                    {{--                                <input type="checkbox" name="publish" class="form-check-input" id="publish">--}}
+                                    {{-- <input type="checkbox" name="publish" class="form-check-input" id="publish">--}}
                                     <label class="form-check-label" for="status">
                                         <input type="checkbox" name="status" value="1" @if($post->status == 1)
                                             {{'checked'}}

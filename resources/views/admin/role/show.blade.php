@@ -23,7 +23,9 @@
                 </div>
             </div><!-- /.container-fluid -->
         </section>
-
+        <div  class="row mb-2 m-auto" style="width: 60%">
+            @include('includes.messages')
+        </div>
         <!-- Main content -->
         <section class="content" style="width: 60%;margin: auto">
 
