@@ -44,14 +44,24 @@
                             </div>
                             <div class="form-group">
                                 <label for="password">User Password</label>
-                                <input type="text" name="password" class="form-control" id="password" placeholder="User Password">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="User Password">
                             </div>
                             <div class="form-group">
-                                <label for="Confirm_password">Confirm_Password</label>
-                                <input type="text" name="confirm_password" class="form-control" id="confirm_password" placeholder="Confirm_Password">
+                                <label for="password_confirmation">Confirm_Password</label>
+                                <input type="password" name="password_confirmation" class="form-control"
+                                       id="password_confirmation" placeholder="Confirm_Password">
                             </div>
                         </div>
                         <!-- /.card-body -->
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox ml-4 mb-2" class="col-lg-3">
+                            <lable for="password_confirmation">Confirm Password</lable>
+                            <lable>
+                                <input type="checkbox" name="status"value="1">
+                                  Status
+                            </lable>
+                        </div>
                     </div>
                     <!-- Default box -->
                     <div class="form-group" style="display: flex">

@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -40,6 +41,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
 
+
         return view('admin.user.create', compact('roles'));
     }
 
@@ -49,8 +51,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-//        dd(111111111);
-        User::query()->create($request->only(['name', 'email', 'password']));
+
+          Admin::query()->create(([
+              'name'=>$request->name,
+              'email'=>$request->email,
+              'status'=>$request->status,
+              'password'=>Hash::make($request->password),
+              'password_confirmation'=>Hash::make($request->password_confirmation)
+          ]));
 
         return redirect()->route('user.index');
     }
@@ -72,7 +80,7 @@ class UserController extends Controller
      */
     public function edit(int $id)
     {
-        $user = User::query()->findOrFail($id);
+        $user = Admin::query()->findOrFail($id);
 
         $roles = Role::all();
 

@@ -14,8 +14,6 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-{{--                                <li class="breadcrumb-item"><a href="#">Home</a></li>--}}
-{{--                                <li class="breadcrumb-item active">Blank Page</li>--}}
                             </ol>
                         </div>
                     </div>
@@ -28,6 +26,7 @@
             <!-- Main content -->
             <section class="content col-lg-offset-3 col-lg-6 m-auto">
                 <form class="form-group" action="{{route('user.store')}}" method="POST">
+                    @method('PUT')
                     @csrf
                     <div class="card card-primary">
                         <div class="card-header">
@@ -36,22 +35,36 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">User Name</label>
-                                <input type="text" name="name" class="form-control" id="username" placeholder="User Name">
+                                <input type="text" name="name" value="{{$user->name}}" class="form-control" id="username" placeholder="User Name">
                             </div>
                             <div class="form-group">
                                 <label for="email">User Email</label>
-                                <input type="text" name="email" class="form-control" id="email" placeholder="User Email">
+                                <input type="text" name="email" value="{{$user->email}}" class="form-control" id="email" placeholder="User Email">
                             </div>
                             <div class="form-group">
                                 <label for="password">User Password</label>
-                                <input type="text" name="password" class="form-control" id="password" placeholder="User Password">
+                                <input type="password" name="password" value="{{$user->password}}" class="form-control" id="password" placeholder="User Password">
                             </div>
                             <div class="form-group">
-                                <label for="Confirm_password">Confirm_Password</label>
-                                <input type="text" name="confirm_password" class="form-control" id="confirm_password" placeholder="Confirm_Password">
+                                <label for="password_confirmation">Confirm_Password</label>
+                                <input type="password"
+                                       value="{{$user->password_confirmation}}"
+                                       name="password_confirmation" class="form-control"
+                                       id="password_confirmation" placeholder="Confirm_Password">
                             </div>
                         </div>
                         <!-- /.card-body -->
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox ml-4 mb-2" class="col-lg-3">
+                            <lable for="password_confirmation">Confirm Password</lable>
+                            <lable>
+                                <input type="checkbox" name="status"value="1" @if($user->status == 1)
+                                    {{'checked'}}
+                                    @endif>
+                                Status
+                            </lable>
+                        </div>
                     </div>
                     <!-- Default box -->
                     <div class="form-group" style="display: flex">
@@ -59,7 +72,7 @@
                             <div class="checkbox ml-4" class="col-lg-3">
                                 <lable>
                                     <input type="checkbox" name="role[]"value="{{ $role->id }}">
-                                      {{ $role->name }}
+                                    {{ $role->name }}
                                 </lable>
                             </div>
                         @endforeach

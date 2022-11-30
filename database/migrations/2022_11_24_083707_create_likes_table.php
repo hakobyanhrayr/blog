@@ -6,6 +6,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateLikesTable extends Migration
 {
+    private const TABLE = 'likes';
+
     /**
      * Run the migrations.
      *
@@ -13,7 +15,7 @@ class CreateLikesTable extends Migration
      */
     public function up()
     {
-        Schema::create('likes', function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->unsigned()->index();
             $table->unsignedBigInteger('post_id')->unsigned()->index();
@@ -28,6 +30,6 @@ class CreateLikesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('likes');
+        Schema::dropIfExists(self::TABLE);
     }
 }
