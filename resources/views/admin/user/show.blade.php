@@ -16,14 +16,14 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-{{--                            <li class="breadcrumb-item"><a href="#">Home</a></li>--}}
-{{--                            <li class="breadcrumb-item active">Blank Page</li>--}}
                         </ol>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
         </section>
-
+        <div  class="row mb-2 m-auto" style="width: 60%">
+            @include('includes.messages')
+        </div>
         <!-- Main content -->
         <section class="content">
 
@@ -55,6 +55,7 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Roles</th>
                                         <td>Edit</td>
                                         <td>Del</td>
                                     </tr>
@@ -65,13 +66,18 @@
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
+                                            <td>
+{{--                                                @foreach($user->roles() as $role)--}}
+{{--                                                    {{ $role->name }}--}}
+{{--                                                @endforeach--}}
+                                            </td>
                                             <td style="display: flex;justify-content: space-around;align-items: center">
                                                 <a href="{{ route('user.edit', $user->id) }}">
                                                     <img src="{{asset('images/edit.svg')}}" style="width: 20px;">
                                                 </a>
                                             </td>
                                             <td>
-                                                <form action="#" method="POST">
+                                                <form action="{{route('user.destroy',$user->id)}}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" style="border: none">
@@ -87,6 +93,7 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Roles</th>
                                         <td>Edit</td>
                                         <td>Del</td>
                                     </tr>

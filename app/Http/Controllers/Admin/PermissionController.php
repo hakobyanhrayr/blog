@@ -43,7 +43,7 @@ class PermissionController extends Controller
 //        dd($request->validated());
         Permission::create($request->validated());
 
-        return redirect()->route('permission.index')->with('message','Permission update SuccessFully');
+        return redirect()->route('permission.index')->with('message','Permission Create SuccessFully');
     }
 
     /**

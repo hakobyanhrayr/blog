@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\admin\Admin;
 use App\Models\admin\Role;
 use App\Models\user\User;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -30,7 +31,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = Admin::all();
+        $users = Admin::get();
+
+
         return view('admin.user.show', compact('users'));
     }
 
@@ -39,7 +42,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
+        $roles = Role::get();
 
 
         return view('admin.user.create', compact('roles'));
@@ -51,16 +54,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request->toArray());
+//        $this->validate($request, [
+//            'name' => 'required',
+//            'email' => 'required',
+//            'status' => 'required',
+//            'password' => 'required',
+//            'password_confirmation' => 'required'
+//        ]);
 
-          Admin::query()->create(([
-              'name'=>$request->name,
-              'email'=>$request->email,
-              'status'=>$request->status,
-              'password'=>Hash::make($request->password),
-              'password_confirmation'=>Hash::make($request->password_confirmation)
-          ]));
+//        $user = Admin::query()->create(([
+//            'name' => $request->name,
+//            'email' => $request->email,
+//            'status' => $request->status,
+//            'password' => Hash::make($request->password),
+//            'password_confirmation' => Hash::make($request->password_confirmation)
+//        ]));
+////        dd($request->role);
+//        $user->roles()->sync($request->role);
 
-        return redirect()->route('user.index');
+        $user = Admin::create($request->all());
+
+        $user->roles()->sync($request->role);
+
+        return redirect()->route('user.index')->with('message', 'Admin Create SuccessFully');
     }
 
     /**
@@ -90,25 +107,42 @@ class UserController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return void
+     * @return RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        dd(777777);
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'status' => 'required',
+            'password' => 'required',
+        ]);
 
-        $user = User::query()->findOrFail($id);
+        Admin::query()->findOrFail($id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'status' => $request->status,
+            'password' => Hash::make($request->password),
+            'password_confirmation' => Hash::make($request->password_confirmation)
+        ]);
+        // Admin::where('id',$id)->update($request->except('_token','method'));
 
-        $user->update($request->all());
+        Admin::query()->find($id)->roles()->sync($request->role);
+
+        return redirect()->route('user.index');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $user = Admin::query()->findOrFail($id);
+
+        $user->delete();
+
+        return redirect()->route('user.index');
     }
 }

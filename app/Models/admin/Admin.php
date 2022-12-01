@@ -14,4 +14,9 @@ class Admin extends Authenticatable
       'password',
        'status'
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }

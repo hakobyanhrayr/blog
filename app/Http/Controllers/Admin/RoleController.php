@@ -35,7 +35,6 @@ class RoleController extends Controller
     {
         $permissions = Permission::all();
 
-
         return view('admin.role.create',compact('permissions'));
     }
 
@@ -45,9 +44,13 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-//        $this->validate($request,['name'=>'required|string|unique:role']);
+        //  $this->validate($request,['name'=>'required|string|unique:role']);
 
-        Role::query()->create($request->validated());
+        $role = Role::query()->create($request->validated());
+
+        $role->permissions()->sync($request->permission);
+
+        $role->save();
 
         return redirect()->route('role.index')->with('message','Role update SuccessFully');
     }

@@ -25,7 +25,7 @@
             </section>
             <!-- Main content -->
             <section class="content col-lg-offset-3 col-lg-6 m-auto">
-                <form class="form-group" action="{{route('user.store')}}" method="POST">
+                <form class="form-group" action="{{route('user.update',$user->id)}}" method="POST">
                     @method('PUT')
                     @csrf
                     <div class="card card-primary">

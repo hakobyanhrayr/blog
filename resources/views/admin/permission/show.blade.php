@@ -23,7 +23,7 @@
                 </div>
             </div><!-- /.container-fluid -->
         </section>
-        <div  class="row mb-2 m-auto" style="width: 60%">
+        <div  class="row mb-2 m-auto" style="width: 99%">
             @include('includes.messages')
         </div>
         <!-- Main content -->
