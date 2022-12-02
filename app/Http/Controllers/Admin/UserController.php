@@ -11,7 +11,9 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -32,9 +34,10 @@ class UserController extends Controller
     public function index()
     {
         $users = Admin::get();
+//            dd($users->toArray());
+        $roles = Role::get();
 
-
-        return view('admin.user.show', compact('users'));
+        return view('admin.user.show', compact('users','roles'));
     }
 
     /**
@@ -51,31 +54,31 @@ class UserController extends Controller
     /**
      * @param Request $request
      * @return RedirectResponse
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
 //        dd($request->toArray());
-//        $this->validate($request, [
-//            'name' => 'required',
-//            'email' => 'required',
-//            'status' => 'required',
-//            'password' => 'required',
-//            'password_confirmation' => 'required'
-//        ]);
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'password_confirmation' => 'required',
+        ]);
 
-//        $user = Admin::query()->create(([
-//            'name' => $request->name,
-//            'email' => $request->email,
-//            'status' => $request->status,
-//            'password' => Hash::make($request->password),
-//            'password_confirmation' => Hash::make($request->password_confirmation)
-//        ]));
-////        dd($request->role);
+        $user = Admin::query()->create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'status' => $request->status,
+            'password' => Hash::make($request->password),
+//            'password_confirmation' => Hash::make($request->password_confirmation),
+        ]);
+
+         $user->roles()->sync($request->role);
+
+//         $user->save();
+//        $user = Admin::create($request->all());
 //        $user->roles()->sync($request->role);
-
-        $user = Admin::create($request->all());
-
-        $user->roles()->sync($request->role);
 
         return redirect()->route('user.index')->with('message', 'Admin Create SuccessFully');
     }
@@ -84,7 +87,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function show($id)
     {
@@ -114,7 +117,6 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
-            'status' => 'required',
             'password' => 'required',
         ]);
 

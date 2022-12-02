@@ -59,7 +59,7 @@
                         <div class="checkbox ml-4 mb-2" class="col-lg-3">
                             <lable for="password_confirmation">Confirm Password</lable>
                             <lable>
-                                <input type="checkbox" name="status"value="1" @if($user->status == 1)
+                                <input type="checkbox" name="status" value="1" @if($user->status == 1)
                                     {{'checked'}}
                                     @endif>
                                 Status
@@ -71,7 +71,13 @@
                         @foreach($roles as $role)
                             <div class="checkbox ml-4" class="col-lg-3">
                                 <lable>
-                                    <input type="checkbox" name="role[]"value="{{ $role->id }}">
+                                    <input type="checkbox" name="role[]" value="{{ $role->id }}"
+                                    @foreach($user->roles as $ur)
+                                        @if($ur->id == $role->id)
+                                            {{'checked'}}
+                                        @endif
+                                    @endforeach
+                                     >
                                     {{ $role->name }}
                                 </lable>
                             </div>

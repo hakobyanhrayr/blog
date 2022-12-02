@@ -1,8 +1,5 @@
 @extends('admin.layouts.app')
 
-@section('headSection')
-    <link rel="stylesheet" href="{{asset('admin/plugins/select2/css/select2.min.css')}}">
-@endsection
 @section('main-content')
     <div class="wrapper">
         <!-- Content Wrapper. Contains page content -->
@@ -16,8 +13,6 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Blank Page</li>
                             </ol>
                         </div>
                     </div>
@@ -128,27 +123,24 @@
         </div>
     </div>
     <!-- ./wrapper -->
-    <script src="{{asset('admin/plugins/select2/js/select2.full.min.js')}}"></script>
+
     <!-- jQuery -->
-    <script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="../../plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="{{asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="{{asset('admin/dist/js/adminlte.min.js')}}"></script>
+    <script src="../../dist/js/adminlte.min.js"></script>
     <!-- Summernote -->
-    <script src="{{asset('admin/plugins/summernote/summernote-bs4.min.js')}}"></script>
+    <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
     <!-- CodeMirror -->
-    <script src="{{asset('admin/plugins/codemirror/codemirror.js')}}"></script>
-    <script src="{{asset('admin/plugins/codemirror/mode/css/css.js')}}"></script>
-    <script src="{{asset('admin/plugins/codemirror/mode/xml/xml.js')}}"></script>
-    <script src="{{asset('admin/plugins/codemirror/mode/htmlmixed/htmlmixed.js')}}"></script>
+    <script src="../../plugins/codemirror/codemirror.js"></script>
+    <script src="../../plugins/codemirror/mode/css/css.js"></script>
+    <script src="../../plugins/codemirror/mode/xml/xml.js"></script>
+    <script src="../../plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{asset('admin/dist/js/demo.js')}}"></script>
+    <script src="../../dist/js/demo.js"></script>
     <!-- Page specific script -->
     <script>
-         $(document).ready(function (){
-             $('.select2').select2()
-         });
         $(function () {
             // Summernote
             $('#summernote').summernote()

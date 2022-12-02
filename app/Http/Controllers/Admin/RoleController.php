@@ -22,7 +22,6 @@ class RoleController extends Controller
      */
     public function index()
     {
-//        dd('show');
         $roles = Role::all();
 
         return  view('admin.role.show',compact('roles'));

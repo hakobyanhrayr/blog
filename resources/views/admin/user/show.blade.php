@@ -55,7 +55,8 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Roles</th>
+                                        <th>User Roles</th>
+                                        <th>Status</th>
                                         <td>Edit</td>
                                         <td>Del</td>
                                     </tr>
@@ -67,10 +68,11 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>
-{{--                                                @foreach($user->roles() as $role)--}}
-{{--                                                    {{ $role->name }}--}}
-{{--                                                @endforeach--}}
+                                                @foreach($user->roles as $role)
+                                                    <a href="#">{{ $role->name }}</a> ,
+                                                @endforeach
                                             </td>
+                                            <td>{{ $user->status ? 'Active' : 'Deactivate' }}</td>
                                             <td style="display: flex;justify-content: space-around;align-items: center">
                                                 <a href="{{ route('user.edit', $user->id) }}">
                                                     <img src="{{asset('images/edit.svg')}}" style="width: 20px;">
@@ -93,7 +95,8 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Roles</th>
+                                        <th>User Roles</th>
+                                        <th>Status</th>
                                         <td>Edit</td>
                                         <td>Del</td>
                                     </tr>

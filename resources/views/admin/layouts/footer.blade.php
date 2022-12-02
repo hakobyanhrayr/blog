@@ -1,6 +1,5 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
+    <strong>Copyright &copy; 2014-{{ \Carbon\Carbon::now()->year }} <a href="https://adminlte.io">  AdminLTE.io </a></strong>
     <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 3.2.0
     </div>
@@ -43,7 +42,6 @@
     <!-- DataTables  & Plugins -->
     <script src="{{asset('admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-    --------
     <script>
         $(function () {
             $("#example1").DataTable({
