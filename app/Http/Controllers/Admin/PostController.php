@@ -130,27 +130,26 @@ class PostController extends Controller
 //            'image'=>'required',
 //        ]);
 
-        $data = $request->validated();
+//        $data = $request->validated();
 
         if ($request->hasFile('image')){
-//            $imageName =
-                $request->image->store('public/images');
+            $imageName =  $request->image->store('public/images');
         }
 
-//        $post = Post::query()->find($id);
-        $post = Post::query()->find($id)->update($data);
+        $post = Post::query()->find($id);
+//        $post = Post::query()->find($id)->update($data);
 
-//        $post->image = $imageName;
-//
-//        $post->title = $request->title;
-//
-//        $post->subtitle = $request->subtitle;
-//
+        $post->image = $imageName;
+
+        $post->title = $request->title;
+
+        $post->subtitle = $request->subtitle;
+
 //        $post->slug = $request->slug;
-//
-//        $post->body = $request->body;
-//
-//        $post->status = $request->status;
+
+        $post->body = $request->body;
+
+        $post->status = $request->status;
 
 
         $post->tags()->sync($request->tags);
