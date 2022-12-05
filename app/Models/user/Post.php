@@ -41,10 +41,10 @@ class Post extends Model
 //        return Carbon::parse($value)->diffForHumans();
 //    }
 
-    public function likes(): HasMany
-    {
-        return $this->hasMany(Like::class);
-    }
+//    public function likes(): HasMany
+//    {
+//        return $this->hasMany(Like::class);
+//    }
 
 //    public function getSlugAttribute($value): string
 //    {
