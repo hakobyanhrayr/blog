@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\admin\Admin;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -53,6 +54,20 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    protected function credentials(Request $request)
+    {
+         // return $request->only($this->username(), 'password');
+
+           $admin = Admin::where('email',$request->email)->first();
+            if ($admin['status'] == 0){
+                return ['email'=>'Deactivate','password'=>'your status is not correct'];
+//                      dd(['email'=>'Deactivate','password'=>'your status is not correct']);
+            }else{
+//                dd($errors =$request->email);
+                return ['email'=>$request->email,'password'=>$request->password,'status'=> 1];
+            }
     }
 
     public function __construct()

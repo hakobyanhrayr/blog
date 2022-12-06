@@ -32,7 +32,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::get();
 
        return view('admin.post.show',compact('posts'));
     }
@@ -42,9 +42,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        $tags = Tag::all();
+        $tags = Tag::get();
 
-        $categories = Category::all();
+        $categories = Category::get();
 
         return view('admin.post.create',compact('tags','categories'));
     }
@@ -62,7 +62,7 @@ class PostController extends Controller
            'body',
            'publish',
            'status',
-           'image'
+//           'image'
        ]));
 
 //        $path = $request->file('image')->store('public/images');
@@ -122,34 +122,44 @@ class PostController extends Controller
     public function update(PostRequest $request, $id): RedirectResponse
     {
 
-//        $this->validate($request,[
-//            'title'=>'required',
-//            'subtitle'=>'required',
-//            'slug'=>'required',
-//            'body'=>'required',
-//            'image'=>'required',
-//        ]);
+        $this->validate($request,[
+            'title'=>'required',
+            'subtitle'=>'required',
+            'slug'=>'required',
+            'body'=>'required',
+            'image'=>'required',
+        ]);
 
 //        $data = $request->validated();
 
-        if ($request->hasFile('image')){
-            $imageName =  $request->image->store('public/images');
-        }
+
 
         $post = Post::query()->find($id);
 //        $post = Post::query()->find($id)->update($data);
+//    ---
+        $post->update($request->only([
+            'title',
+            'subtitle',
+            'body',
+            'publish',
+            'status',
+        ]));
+//          -----
+        if ($request->hasFile('image')){
+            $imageName =  $request->image->store('public/images');
+        };
 
         $post->image = $imageName;
 
-        $post->title = $request->title;
+//        $post->title = $request->title;
 
-        $post->subtitle = $request->subtitle;
+//        $post->subtitle = $request->subtitle;
 
 //        $post->slug = $request->slug;
 
-        $post->body = $request->body;
+//        $post->body = $request->body;
 
-        $post->status = $request->status;
+//        $post->status = $request->status;
 
 
         $post->tags()->sync($request->tags);

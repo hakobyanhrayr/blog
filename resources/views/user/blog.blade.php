@@ -4,10 +4,18 @@
 @section('title','BitFumes Blog')
 @section('sub-heading','Learn Together and Grow Together')
 
+@section('head')
+    <style>
+        .fa-thumbs-up:hover{
+            color:red;
+        }
+    </style>
+@endsection
+
 @section('main-content')
     <!-- Main Content-->
     <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="row gx-4 gx-lg-5 justify-content-center" id="app">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 @foreach($posts as $post)
 {{--                    @dd($posts->toArray());--}}
@@ -24,6 +32,9 @@
                             Posted by
                             <a href="#!">Start Bootstrap</a>
                             {{ $post->created_at }}
+                            <br>
+                            <small> 0 </small>
+                            <a href="#"><i class="fa-solid fa-thumbs-up"></i></a>
                         </p>
                     </div>
                 @endforeach
@@ -34,4 +45,7 @@
                </div>
         </div>
     </div>
+@endsection
+@section('footer')
+    <script src="{{asset('js/app.js')}}"></script>
 @endsection
