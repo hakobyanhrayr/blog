@@ -31,6 +31,11 @@ class Post extends Model
         return $this->belongsToMany(Category::class,'category_posts')->withTimestamps();
     }
 
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class);
+    }
+
 //    public function getRouteKeyName(): string
 //    {
 //        return 'slug';
@@ -39,11 +44,6 @@ class Post extends Model
 //    public function getCreatedAtAttribute($value): string
 //    {
 //        return Carbon::parse($value)->diffForHumans();
-//    }
-
-//    public function likes(): HasMany
-//    {
-//        return $this->hasMany(Like::class);
 //    }
 
 //    public function getSlugAttribute($value): string

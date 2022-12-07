@@ -7,6 +7,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class UserPostController extends Controller
@@ -16,7 +17,7 @@ class UserPostController extends Controller
      */
     public function index()
     {
-        //
+//        dd(111111);
     }
 
     /**
@@ -48,6 +49,7 @@ class UserPostController extends Controller
      */
     public function show(int $id)
     {
+
        $post = Post::query()->findOrFail($id);
 
         return view('user.post',compact('post'));

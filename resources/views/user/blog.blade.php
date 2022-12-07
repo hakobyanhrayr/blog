@@ -32,10 +32,23 @@
                             Posted by
                             <a href="#!">Start Bootstrap</a>
                             {{ $post->created_at }}
-                            <br>
-                            <small> 0 </small>
-                            <a href="#"><i class="fa-solid fa-thumbs-up"></i></a>
                         </p>
+                        <div style="display: flex;justify-content: space-between;align-items: center;margin-bottom: 15px">
+                            <div>
+                                <span>Status:{{ $post->status }}</span>
+                            </div>
+                            <div style="padding-bottom: 10px; display: flex;align-items: center;width: 100px;justify-content: space-between">
+                                {{--                         @dd($likes);--}}
+
+                                <small>Like: {{ $likes }} </small>
+{{--                                @dd($user);--}}
+                                <form action="{{route('like.index')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="post" value="{{ $post->id }}">
+                                    <button type="submit" href="" id="#" data-id="{{ $post->id }}"  style="background: none;border: none"><i class="fa-solid fa-thumbs-up"></i></button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -47,5 +60,5 @@
     </div>
 @endsection
 @section('footer')
-    <script src="{{asset('js/app.js')}}"></script>
+{{--    <script src="{{asset('js/app.js')}}"></script>--}}
 @endsection

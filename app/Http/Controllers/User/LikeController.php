@@ -6,25 +6,20 @@ use App\Models\user\Like;
 use App\Models\user\Post;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class HomeController extends Controller
+class LikeController extends Controller
 {
     /**
      * @return Application|Factory|View
      */
     public function index()
     {
-//         $posts = Post::where('status',1)->with('likes')->paginate(2);
-//        $posts = Post::where('status',1)->with('likes')->get();
-
-        $likes = Like::query()->count();
-
-        $posts = Post::where('status',1)->paginate(2);
-
-        return view('user.blog',compact('posts','likes'));
+       //
     }
 
     /**
@@ -34,18 +29,32 @@ class HomeController extends Controller
      */
     public function create()
     {
-        //
+       // dd('create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Post $post
+     * @return RedirectResponse|string
      */
-    public function store(Request $request)
+    public function store(Request $request,Post $post)
     {
-        //
+        $userId = Auth::id();
+
+        Like::create([
+            'user_id'=>$userId,
+            'post_id'=>$request->post
+        ]);
+
+//        if($request->has('like')){
+//             return 'у уже поставил Like';
+//        }else{
+//
+//        }
+
+//        $postId = Post::query()->findOrFail($id);
+
+        return redirect()->route('index');
     }
 
     /**
@@ -56,7 +65,7 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        //
+       // dd('show');
     }
 
     /**
@@ -67,7 +76,7 @@ class HomeController extends Controller
      */
     public function edit($id)
     {
-        //
+      //  dd('edit');
     }
 
     /**
@@ -79,7 +88,7 @@ class HomeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd('update');
     }
 
     /**
@@ -90,6 +99,6 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        //
+      //  dd('destroy');
     }
 }

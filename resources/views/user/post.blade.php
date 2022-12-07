@@ -10,14 +10,14 @@
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v15.0" nonce="MVSlysdz">
-
 </script>
 {{--    -------}}
     <!-- Post Content-->
     <article class="mb-4">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
-             <div class="col-lg-6 m-auto" style="border: 1px solid black">
+             <div class="col-lg-6 m-auto" style="border: 1px solid black" data-postid="{{ $post->id }}" id="tt">
+{{--                 @dd($post->id);--}}
                  <small>Created: {{ $post->created_at }}</small><br>
                  <hr>
                  @foreach($post->categories as $category)
@@ -29,9 +29,18 @@
                  @endforeach
                  <hr>
                  <p>Content: <br>{!! htmlspecialchars_decode($post->body) !!}</p>
-                 <span>Status:{{ $post->status }}</span>
+                 <div style="display: flex;justify-content: space-between;align-items: center;margin-bottom: 15px">
+                      <div>
+                          <span>Status:{{ $post->status }}</span>
+                      </div>
+                     <div style="padding-bottom: 10px; display: flex;align-items: center;width: 100px;justify-content: space-between">
+{{--                         @dd($likes);--}}
+                         <small>Like: 0 </small>
+                         <a href="" id="like"><i class="fa-solid fa-thumbs-up"></i></a>
+                     </div>
+                 </div>
              </div>
-                <div class="fb-comments" data-href="{{Request::url()}}"  data-numposts="2"></div>
+                <div class="fb-comments" data-href="{{Request::url()}}"  data-numposts="2" style="padding-left: 7px"></div>
             </div>
         </div>
     </article>

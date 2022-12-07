@@ -45,6 +45,7 @@
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\User\ContentController;
+use App\Http\Controllers\User\LikeController;
 use App\Http\Controllers\User\UserPostController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -56,6 +57,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/',User\HomeController::class);
 
 
+Route::resource('/like',User\LikeController::class);
 
 //
 Route::group(['prefix' => 'user'],function(){
