@@ -56,8 +56,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/',User\HomeController::class);
 
+//Route::get('/','User\HomeController@index')->name('post');
+//
+//Route::post('/','User\HomeController@like')->name('like');
 
-Route::resource('/like',User\LikeController::class);
+//Route::resource('/like',User\LikeController::class);
 
 //
 Route::group(['prefix' => 'user'],function(){

@@ -37,25 +37,25 @@ class LikeController extends Controller
      * @param Post $post
      * @return RedirectResponse|string
      */
-    public function store(Request $request,Post $post)
-    {
-        $userId = Auth::id();
-
-        Like::create([
-            'user_id'=>$userId,
-            'post_id'=>$request->post
-        ]);
-
-//        if($request->has('like')){
-//             return 'у уже поставил Like';
-//        }else{
+//    public function store(Request $request,Post $post)
+//    {
+//        $userId = Auth::id();
+//        $likes = Like::query()->where(['user_id'=>$userId,'post_id'=>$request->post])->get()->count();
 //
-//        }
-
-//        $postId = Post::query()->findOrFail($id);
-
-        return redirect()->route('index');
-    }
+////        dd($likes);
+////        dd($userId);
+//
+//            if ($likes == 0){
+//                Like::create([
+//                    'user_id'=>$userId,
+//                    'post_id'=>$request->post
+//                ]);
+//            }
+//
+////        $postId = Post::query()->findOrFail($id);
+//
+//        return redirect()->route('index');
+//    }
 
     /**
      * Display the specified resource.

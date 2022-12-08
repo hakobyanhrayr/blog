@@ -38,15 +38,7 @@
                                 <span>Status:{{ $post->status }}</span>
                             </div>
                             <div style="padding-bottom: 10px; display: flex;align-items: center;width: 100px;justify-content: space-between">
-                                {{--                         @dd($likes);--}}
-
-                                <small>Like: {{ $likes }} </small>
-{{--                                @dd($user);--}}
-                                <form action="{{route('like.index')}}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="post" value="{{ $post->id }}">
-                                    <button type="submit" href="" id="#" data-id="{{ $post->id }}"  style="background: none;border: none"><i class="fa-solid fa-thumbs-up"></i></button>
-                                </form>
+                                <small>Like:  {{ $post->likes->count() }} </small>
                             </div>
                         </div>
                     </div>
