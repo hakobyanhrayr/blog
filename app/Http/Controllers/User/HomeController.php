@@ -19,12 +19,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-         $posts = Post::where('status',1)->with('likes')->paginate(2);
+//         $posts = Post::where('status',1)->with('likes')->paginate(2);
 //        $posts = Post::where('status',1)->with('likes')->get();
 
 //        $likes = Like::query()->count();
 //
-//        $posts = Post::where('status',1)->paginate(2);
+        $posts = Post::where('status',1)->paginate(2);
 
         return view('user.blog',compact('posts'));
     }
@@ -68,31 +68,37 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        $post_id = $request->post;
-        $user_id = Auth::id();
+//        $post_id = $request->post;
+//        $user_id = Auth::id();
+////        dd($user_id);
+//          if ($user_id){
+//              $likes = Like::query()->where(['user_id'=>$user_id,'post_id'=>$post_id])->count();
+//              if ($likes == 0){
+//                  $likeObj = new Like();
+//                  $likeObj->user_id = $user_id;
+//                  $likeObj->post_id = $post_id;
+//
+//                  $likeObj->save();
+//              }
+//              return back()->with('message','you liked this post');
+//          }
+//           return redirect()->route('login');
 
-        $likes = Like::query()->where(['user_id'=>$user_id,'post_id'=>$post_id])->count();
-         if ($likes == 0){
-             $likeObj = new Like();
-             $likeObj->user_id = $user_id;
-             $likeObj->post_id = $post_id;
-
-             $likeObj->save();
-         }
-
-        $post = Post::query()->find($post_id);
-
-        $post->update($request->only([
-            'title',
-            'subtitle',
-            'body',
-            'publish',
-            'status',
-        ]));
-//         dd($post->like);
-        $post->like = $likes;
-
-        $post->save();
+//        $post = Post::query()->find($post_id);
+//
+//        $post->update($request->only([
+//            'title',
+//            'subtitle',
+//            'body',
+//            'publish',
+//            'status',
+//        ]));
+//
+//          // dd($post->like);
+//
+//        $post->like = $likes;
+//
+//        $post->save();
 
         return back()->with('message','you liked this post');
     }

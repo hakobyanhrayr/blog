@@ -11,36 +11,6 @@
 |
 */
 
-
-
-
-//Route::get('/', function () {
-//    return view('user.blog');
-//});
-//
-//Route::get('admin/post', function () {
-//    dd(1111);
-//    return view('user.post');
-//})->name('post');
-
-//Route::get('admin/home', function () {
-//    return view('admin.home');
-//})->name('admin');
-//
-//Route::get('admin/post', function () {
-//    return view('admin.post.post');
-//})->name('post');
-//
-//Route::get('admin/tag', function () {
-//    return view('admin.tag.tag');
-//})->name('tag');
-//
-//Route::get('admin/category', function () {
-//    return view('admin.category.category');
-//})->name('category');
-
-
-
 //---User---
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\PostController;
@@ -61,6 +31,12 @@ Route::resource('/',User\HomeController::class);
 //Route::post('/','User\HomeController@like')->name('like');
 
 //Route::resource('/like',User\LikeController::class);
+Route::group(['middleware'=>'auth'],function(){
+    Route::post('/','User\LikeController@likes')->name('likes');
+
+//    Route::post('/','User\LikeController@dislike')->name('dislike');
+//    Route::post('/','User\DislikeController@dislike')->name('dislike');
+});
 
 //
 Route::group(['prefix' => 'user'],function(){

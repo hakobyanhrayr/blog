@@ -2,103 +2,56 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\user\Dislike;
 use App\Models\user\Like;
-use App\Models\user\Post;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 
 class LikeController extends Controller
 {
     /**
-     * @return Application|Factory|View
-     */
-    public function index()
-    {
-       //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-       // dd('create');
-    }
-
-    /**
      * @param Request $request
-     * @param Post $post
-     * @return RedirectResponse|string
+     * @return RedirectResponse
      */
-//    public function store(Request $request,Post $post)
+    public function likes(Request $request): RedirectResponse
+    {
+        $post_id = $request->post;
+        $user_id = Auth::id();
+//        dd($user_id);
+
+        $likes = Like::query()->where(['user_id'=>$user_id,'post_id'=>$post_id])->count();
+
+        if ($likes == 0){
+            $likeObj = new Like();
+            $likeObj->user_id = $user_id;
+            $likeObj->post_id = $post_id;
+
+            $likeObj->save();
+        }
+        return back()->with('message','you liked this post');
+    }
+
+//    /**
+//     * @param Request $request
+//     * @return RedirectResponse
+//     */
+//    public function dislike(Request $request): RedirectResponse
 //    {
-//        $userId = Auth::id();
-//        $likes = Like::query()->where(['user_id'=>$userId,'post_id'=>$request->post])->get()->count();
+//        $post_id = $request->post;
 //
-////        dd($likes);
-////        dd($userId);
+//        $user_id = Auth::id();
 //
-//            if ($likes == 0){
-//                Like::create([
-//                    'user_id'=>$userId,
-//                    'post_id'=>$request->post
-//                ]);
-//            }
+//        $dislikes = Dislike::query()->where(['user_id'=>$user_id,'post_id'=>$post_id])->count();
 //
-////        $postId = Post::query()->findOrFail($id);
+//        if ($dislikes == 0){
+//            $dis = new Dislike();
+//            $dis->post_id = $post_id;
+//            $dis->user_id = $user_id;
 //
-//        return redirect()->route('index');
+//            $dis->save();
+//        }
+//        return back()->with('message','you disliked this post');
 //    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-       // dd('show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-      //  dd('edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        // dd('update');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-      //  dd('destroy');
-    }
 }

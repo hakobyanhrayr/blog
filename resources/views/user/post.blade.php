@@ -15,9 +15,9 @@
     <!-- Post Content-->
     <article class="mb-4">
         <div class="container px-4 px-lg-5">
-            <div  class="row mb-2 m-auto" style="width: 60%">
-                @include('includes.messages')
-            </div>
+{{--            <div  class="row mb-2 m-auto" style="width: 60%">--}}
+{{--                @include('includes.messages')--}}
+{{--            </div>--}}
             <div class="row gx-4 gx-lg-5 justify-content-center">
              <div class="col-lg-6 m-auto" style="border: 1px solid black" data-postid="{{ $post->id }}" id="tt">
 {{--                 @dd($post->id);--}}
@@ -36,17 +36,34 @@
                       <div>
                           <span>Status:{{ $post->status }}</span>
                       </div>
-                     <div style="padding-bottom: 10px; display: flex;align-items: center;width: 100px;justify-content: space-between">
-                         <small>Like:  {{ $post->likes->count() }} </small>
-                         <form action="{{route('store')}}" method="POST">
-                             @csrf
-                             <input type="hidden" name="post" value="{{ $post->id }}">
-                             <button type="submit" href="" id="#" data-id="{{ $post->id }}"  style="background: none;border: none"><i class="fa-solid fa-thumbs-up"></i></button>
-                         </form>
-                     </div>
+                      <div style="display: flex;justify-content: space-between;align-items: center;width: 180px;">
+                          {{--                     --------------------}}
+                          <div style="padding-bottom: 10px; display: flex;align-items: center;width: 100px;justify-content: space-between">
+                              <small>Like:  {{ $post->likes->count() }} </small>
+                              <form action="{{route('likes')}}" method="POST">
+                                  @csrf
+                                  <input type="hidden" name="post" value="{{ $post->id }}">
+                                  <button type="submit" href="" id="#" data-id="{{ $post->id }}"  style="background: none;border: none"><i class="fa-solid fa-thumbs-up"></i></button>
+                              </form>
+                          </div>
+                          {{--                     --------------}}
+                          <div style="padding-bottom: 10px; display: flex;align-items: center;width: 100px;justify-content: space-between">
+                              <small>Dislike:
+                                  {{--                            {{ $post->Dislikes->count() }} --}}
+                              </small>
+                              <form action="
+{{--                              {{route('dislike')}}--}}
+                              " method="POST">
+                                  @csrf
+                                  <input type="hidden" name="post" value="{{ $post->id }}">
+                                  <button type="submit" href="" id="#" data-id="{{ $post->id }}"  style="background: none;border: none"><i class="fa-solid fa-thumbs-down"></i></button>
+                              </form>
+                          </div>
+                          {{--                     ---------------}}
+                      </div>
                  </div>
              </div>
-                <div class="fb-comments" data-href="{{Request::url()}}"  data-numposts="2" style="padding-left: 7px"></div>
+                <div class="fb-comments" data-href="{{ Request::url() }}"  data-numposts="2" style="padding-left: 7px"></div>
             </div>
         </div>
     </article>

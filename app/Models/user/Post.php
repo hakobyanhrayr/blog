@@ -36,6 +36,10 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
+     public function dislikes(): HasMany
+     {
+         return $this->hasMany(Dislike::class);
+     }
 //    public function getRouteKeyName(): string
 //    {
 //        return 'slug';

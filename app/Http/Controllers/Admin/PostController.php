@@ -34,7 +34,7 @@ class PostController extends Controller
     {
         $posts = Post::get();
 
-       return view('admin.post.show',compact('posts'));
+        return view('admin.post.show',compact('posts'));
     }
 
     /**
@@ -56,14 +56,14 @@ class PostController extends Controller
     public function store(PostRequest $request): RedirectResponse
     {
         $post = Post::query()->create($request->only([
-           'title',
-           'subtitle',
-           'slug',
-           'body',
-           'publish',
-           'status',
+            'title',
+            'subtitle',
+            'slug',
+            'body',
+            'publish',
+            'status',
 //           'image'
-       ]));
+        ]));
 
 //        $path = $request->file('image')->store('public/images');
 
@@ -94,7 +94,7 @@ class PostController extends Controller
     {
         $post = Post::query()->find($id);
 
-       return view('admin.post.show',compact('post'));
+        return view('admin.post.show',compact('post'));
     }
 
     /**
