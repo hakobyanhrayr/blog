@@ -26,17 +26,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/',User\HomeController::class);
 
-//Route::get('/','User\HomeController@index')->name('post');
-//
-//Route::post('/','User\HomeController@like')->name('like');
 
-//Route::resource('/like',User\LikeController::class);
 Route::group(['middleware'=>'auth'],function(){
     Route::post('/','User\LikeController@likes')->name('likes');
-//    Route::post('/','User\DislikeController@dislike')->name('dislike');
+    Route::post('/tt','User\DislikeController@dislike')->name('dislike');
 
-//    Route::post('/','User\LikeController@dislike')->name('dislike');
-//    Route::post('/','User\DislikeController@dislike')->name('dislike');
 });
 
 //

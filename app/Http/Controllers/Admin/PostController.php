@@ -30,23 +30,23 @@ class PostController extends Controller
     /**
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View
     {
         $posts = Post::get();
 
-        return view('admin.post.show',compact('posts'));
+        return view('admin.post.show', compact('posts'));
     }
 
     /**
      * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View
     {
         $tags = Tag::get();
 
-        $categories = Category::get();
+        $categories = Category::query()->get();
 
-        return view('admin.post.create',compact('tags','categories'));
+        return view('admin.post.create', compact('tags', 'categories'));
     }
 
     /**
@@ -62,7 +62,6 @@ class PostController extends Controller
             'body',
             'publish',
             'status',
-//           'image'
         ]));
 
 //        $path = $request->file('image')->store('public/images');
@@ -90,26 +89,29 @@ class PostController extends Controller
      * @param int $id
      * @return Application|Factory|View
      */
-    public function show(int $id)
+    public function show(int $id): View
     {
+        //findorfail
         $post = Post::query()->find($id);
 
-        return view('admin.post.show',compact('post'));
+        return view('admin.post.show', compact('post'));
     }
 
     /**
      * @param $id
      * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit($id): View
     {
-        $post= Post::with('tags','categories')->where('id',$id)->first();
-//        $post = Post::query()->findOrFail($id);
+        //findorfail
+        $post = Post::with('tags', 'categories')->where('id', $id)->first();
+
+        //cursor, get, all
         $tags = Tag::all();
 
         $categories = Category::all();
 
-        return view('admin.post.edit',compact('post', 'tags','categories'));
+        return view('admin.post.edit', compact('post', 'tags', 'categories'));
 
     }
 
@@ -122,21 +124,17 @@ class PostController extends Controller
     public function update(PostRequest $request, $id): RedirectResponse
     {
 
-        $this->validate($request,[
-            'title'=>'required',
-            'subtitle'=>'required',
-            'slug'=>'required',
-            'body'=>'required',
-            'image'=>'required',
-        ]);
-
-//        $data = $request->validated();
-
+//        $this->validate($request, [
+//            'title' => 'required',
+//            'subtitle' => 'required',
+//            'slug' => 'required',
+//            'body' => 'required',
+//            'image' => 'required',
+//        ]);
 
 
         $post = Post::query()->find($id);
-//        $post = Post::query()->find($id)->update($data);
-//    ---
+
         $post->update($request->only([
             'title',
             'subtitle',
@@ -145,8 +143,8 @@ class PostController extends Controller
             'status',
         ]));
 //          -----
-        if ($request->hasFile('image')){
-            $imageName =  $request->image->store('public/images');
+        if ($request->hasFile('image')) {
+            $imageName = $request->image->store('public/images');
         };
 
         $post->image = $imageName;
@@ -168,7 +166,8 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect()->route('post.index')->with('message','Post update SuccessFully');
+        return redirect()->route('post.index')->with('message', 'Post update SuccessFully');
+
     }
 
     /**

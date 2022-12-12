@@ -19,29 +19,43 @@
             <div class="col-md-10 col-lg-8 col-xl-7">
                 @foreach($posts as $post)
 {{--                    @dd($posts->toArray());--}}
-                    <div class="post-preview">
-                        <a href="{{route('posted.show', $post->id)}}">
-                            <h2 class="post-title">
-                                {{ $post->title }}
-                            </h2>
-                            <h3 class="post-subtitle">
-                                {{ $post->subtitle }}
-                            </h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            {{ $post->created_at }}
-                        </p>
-                        <div style="display: flex;justify-content: space-between;align-items: center;margin-bottom: 15px">
-                            <div>
-                                <span>Status:{{ $post->status }}</span>
+                    <div class="post-preview p-5"  style="display: flex;align-items: center;justify-content: space-between;">
+                        <div>
+                            <a href="{{route('posted.show', $post->id)}}">
+                                <h2 class="post-title">
+                                    {{ $post->title }}
+                                </h2>
+                                <h3 class="post-subtitle">
+                                    {{ $post->subtitle }}
+                                </h3>
+                            </a>
+                            <p class="post-meta">
+                                Posted by
+                                <a href="#" style="text-decoration: none">Start Bootstrap</a>
+                                {{ $post->created_at }}
+                            </p>
+                        </div>
+                        <div>
+                            <div style="display: flex;justify-content: space-between;align-items: center;margin-bottom: 15px;width: 120px">
+{{--                                <div>--}}
+{{--                                    <span>Status:{{ $post->status }}</span>--}}
+{{--                                </div>--}}
+                                <div style="padding-bottom: 10px; display: flex;align-items: center;width: 100px;justify-content: space-between">
+                                    <small>Like:  {{ $post->likes->count() }} </small>
+                                </div>
                             </div>
-                            <div style="padding-bottom: 10px; display: flex;align-items: center;width: 100px;justify-content: space-between">
-                                <small>Like:  {{ $post->likes->count() }} </small>
+                            <div style="display: flex;justify-content: space-between;align-items: center;margin-bottom: 15px;width: 120px">
+{{--                                <div>--}}
+{{--                                    <span>Status:{{ $post->status }}</span>--}}
+{{--                                </div>--}}
+                                <div style="padding-bottom: 10px; display: flex;align-items: center;width: 100px;justify-content: space-between">
+                                    <small>Dislike:  {{ $post->dislikes->count() }} </small>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+{{--                    --end----}}
                 @endforeach
             </div>
             <!-- Pager-->

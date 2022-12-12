@@ -16,8 +16,8 @@ class CreateCategoryPostsTable extends Migration
     {
         Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('category_id')->unsigned()->index();
-            $table->unsignedBigInteger('post_id')->unsigned()->index();
+            $table->unsignedBigInteger('category_id')->index();
+            $table->unsignedBigInteger('post_id')->index();
             $table->timestamps();
 
             $table->foreign('post_id')

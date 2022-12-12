@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
@@ -17,9 +18,8 @@ class HomeController extends Controller
         $this->middleware('auth:admin');
     }
 
-    public function index()
+    public function index(): View
     {
-//        dd('hello Admin');
         return view('admin/home');
     }
 

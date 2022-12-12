@@ -28,9 +28,9 @@ class CategoryController extends Controller
     /**
      * @return Application|Factory|View
      */
-    public function index()
+    public function index():View
     {
-        $categories = Category::all();
+        $categories = Category::get();
 
         return view('admin.category.show',compact('categories'));
     }
@@ -38,7 +38,7 @@ class CategoryController extends Controller
     /**
      * @return Application|Factory|View
      */
-    public function create()
+    public function create():View
     {
         //todo: see tipitizeyshn;
 
@@ -49,9 +49,9 @@ class CategoryController extends Controller
      * @param CategoryRequest $request
      * @return RedirectResponse
      */
-    public function store(CategoryRequest $request)
+    public function store(CategoryRequest $request): RedirectResponse
     {
-        Category::create($request->validated());
+        Category::create($request->only(['name','slug']));
 
         return redirect()->route('category.index')->with('message','Category update SuccessFully');
     }
@@ -60,7 +60,7 @@ class CategoryController extends Controller
      * @param $id
      * @return RedirectResponse
      */
-    public function show($id)
+    public function show($id): RedirectResponse
     {
           Category::query()->findOrFail($id);
 
@@ -71,7 +71,7 @@ class CategoryController extends Controller
      * @param $id
      * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit($id):View
     {
         $category = Category::query()->findOrFail($id);
 

@@ -17,11 +17,11 @@ class PermissionController extends Controller
     /**
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View
     {
-        $permissions = Permission::get();
+        $permissions = Permission::query()->get();
 
-        return view('admin.permission.show',compact('permissions'));
+        return view('admin.permission.show', compact('permissions'));
     }
 
     /**
@@ -29,7 +29,7 @@ class PermissionController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.permission.create');
     }
@@ -40,17 +40,14 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request): RedirectResponse
     {
-//        dd($request->validated());
-        Permission::create($request->validated());
+        Permission::query()->create($request->validated());
 
-        return redirect()->route('permission.index')->with('message','Permission Create SuccessFully');
+        return redirect()->route('permission.index')->with('message', 'Permission Create SuccessFully');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return void
      */
     public function show($id)
     {
@@ -61,11 +58,11 @@ class PermissionController extends Controller
      * @param $id
      * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit($id): View
     {
         $permission = Permission::query()->findOrFail($id);
 
-        return view('admin.permission.edit',compact('permission'));
+        return view('admin.permission.edit', compact('permission'));
     }
 
     /**
@@ -73,7 +70,7 @@ class PermissionController extends Controller
      * @param $id
      * @return RedirectResponse
      */
-    public function update(PermissionRequest $request, $id)
+    public function update(PermissionRequest $request, $id): RedirectResponse
     {
         $permission = Permission::query()->findOrFail($id);
 

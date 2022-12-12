@@ -27,17 +27,17 @@ class TagController extends Controller
     /**
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View
     {
-        $tags = Tag::all();
+        $tags = Tag::get();
 
-        return view('admin.tag.show',compact('tags'));
+        return view('admin.tag.show', compact('tags'));
     }
 
     /**
      * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.tag.create');
     }
@@ -48,27 +48,27 @@ class TagController extends Controller
      */
     public function store(TagRequest $request): RedirectResponse
     {
-        Tag::create($request->validated());
+        Tag::create($request->only(['name', 'slug']));
 
-       return redirect()->route('tag.index')->with('message','Tag update SuccessFully');
+        return redirect()->route('tag.index')->with('message', 'Tag update SuccessFully');
     }
 
     /**
      * @param int $id
      * @return Application|Factory|View
      */
-    public function show(int $id)
+    public function show(int $id): View
     {
-       Tag::query()->findOrFail($id);
+        Tag::query()->findOrFail($id);
 
         return view('admin.tag.show');
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         $tag = Tag::query()->findOrFail($id);
 
@@ -77,10 +77,10 @@ class TagController extends Controller
 
     /**
      * @param TagRequest $request
-     * @param $id
+     * @param int $id
      * @return RedirectResponse
      */
-    public function update(TagRequest $request, $id): RedirectResponse
+    public function update(TagRequest $request, int $id): RedirectResponse
     {
         $tag = Tag::query()->findOrFail($id);
 
@@ -90,11 +90,11 @@ class TagController extends Controller
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return RedirectResponse
      * @throws Exception
      */
-    public function destroy($id): RedirectResponse
+    public function destroy(int $id): RedirectResponse
     {
         $tag = Tag::query()->findOrFail($id);
 

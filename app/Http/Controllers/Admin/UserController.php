@@ -31,19 +31,19 @@ class UserController extends Controller
     /**
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View
     {
         $users = Admin::get();
-//            dd($users->toArray());
+
         $roles = Role::get();
 
-        return view('admin.user.show', compact('users','roles'));
+        return view('admin.user.show', compact('users', 'roles'));
     }
 
     /**
      * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View
     {
         $roles = Role::get();
 
@@ -56,9 +56,8 @@ class UserController extends Controller
      * @return RedirectResponse
      * @throws ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-//        dd($request->toArray());
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
@@ -70,15 +69,14 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'status' => $request->status,
-            'password' => Hash::make($request->password),
-//            'password_confirmation' => Hash::make($request->password_confirmation),
+            'password' => Hash::make($request->password)
         ]);
 
-         $user->roles()->sync($request->role);
+        $user->roles()->sync($request->role);
 
-//         $user->save();
-//        $user = Admin::create($request->all());
-//        $user->roles()->sync($request->role);
+        //  $user->save();
+        //  $user = Admin::create($request->all());
+        //  $user->roles()->sync($request->role);
 
         return redirect()->route('user.index')->with('message', 'Admin Create SuccessFully');
     }
@@ -98,11 +96,11 @@ class UserController extends Controller
      * @param int $id
      * @return Application|Factory|View
      */
-    public function edit(int $id)
+    public function edit(int $id): View
     {
         $user = Admin::query()->findOrFail($id);
 
-        $roles = Role::all();
+        $roles = Role::get();
 
         return view('admin.user.edit', compact('user', 'roles'));
     }
@@ -111,8 +109,9 @@ class UserController extends Controller
      * @param Request $request
      * @param $id
      * @return RedirectResponse
+     * @throws ValidationException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         $this->validate($request, [
             'name' => 'required',
@@ -124,10 +123,8 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'status' => $request->status,
-            'password' => Hash::make($request->password),
-            'password_confirmation' => Hash::make($request->password_confirmation)
+            'password' => Hash::make($request->password)
         ]);
-        // Admin::where('id',$id)->update($request->except('_token','method'));
 
         Admin::query()->find($id)->roles()->sync($request->role);
 
@@ -135,11 +132,11 @@ class UserController extends Controller
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return RedirectResponse
      * @throws Exception
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
         $user = Admin::query()->findOrFail($id);
 

@@ -21,37 +21,35 @@ class Post extends Model
         'image'
     ];
 
+    /**
+     * @return BelongsToMany
+     */
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class,'post_tags')->withTimestamps();
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class,'category_posts')->withTimestamps();
     }
 
+    /**
+     * @return HasMany
+     */
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
     }
 
+    /**
+     * @return HasMany
+     */
      public function dislikes(): HasMany
      {
          return $this->hasMany(Dislike::class);
      }
-//    public function getRouteKeyName(): string
-//    {
-//        return 'slug';
-//    }
-
-//    public function getCreatedAtAttribute($value): string
-//    {
-//        return Carbon::parse($value)->diffForHumans();
-//    }
-
-//    public function getSlugAttribute($value): string
-//    {
-//        return route('post',$value);
-//    }
 }

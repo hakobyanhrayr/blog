@@ -2,6 +2,7 @@
 
 namespace App\Models\user;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -36,12 +37,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function likes()
+    /**
+     * @return HasMany
+     */
+    public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
     }
 
-    public function post()
+    /**
+     * @return HasMany
+     */
+    public function post(): HasMany
     {
         return $this->hasMany(Post::class);
     }

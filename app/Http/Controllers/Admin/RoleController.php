@@ -20,60 +20,59 @@ class RoleController extends Controller
     /**
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View
     {
-        $roles = Role::all();
+        $roles = Role::query()->get();
 
-        return  view('admin.role.show',compact('roles'));
+        return view('admin.role.show', compact('roles'));
     }
 
     /**
      * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View
     {
-        $permissions = Permission::all();
+        $permissions = Permission::query()->get();
 
-        return view('admin.role.create',compact('permissions'));
+        return view('admin.role.create', compact('permissions'));
     }
 
     /**
      * @param RoleRequest $request
      * @return RedirectResponse
      */
-    public function store(RoleRequest $request)
+    public function store(RoleRequest $request): RedirectResponse
     {
-        //  $this->validate($request,['name'=>'required|string|unique:role']);
 
-        $role = Role::query()->create($request->validated());
+        $role = Role::query()->create($request->only(['name']));
 
         $role->permissions()->sync($request->permission);
 
         $role->save();
 
-        return redirect()->route('role.index')->with('message','Role update SuccessFully');
+        return redirect()->route('role.index')->with('message', 'Role update SuccessFully');
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return void
      */
-    public function show($id)
+    public function show(int $id)
     {
-       //
+        //
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(int $id): View
     {
         $role = Role::query()->findOrFail($id);
 
-        $permissions = Permission::all();
+        $permissions = Permission::query()->get();
 
-        return view('admin.role.edit',compact('role','permissions'));
+        return view('admin.role.edit', compact('role', 'permissions'));
     }
 
     /**
@@ -81,9 +80,8 @@ class RoleController extends Controller
      * @param $id
      * @return RedirectResponse
      */
-    public function update(RoleRequest $request, $id)
+    public function update(RoleRequest $request, $id): RedirectResponse
     {
-//        dd($request->all());
         $role = Role::query()->findOrFail($id);
 
         $role->update($request->validated());
@@ -98,12 +96,12 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return RedirectResponse
      */
-    public function destroy($id): RedirectResponse
+    public function destroy(int $id): RedirectResponse
     {
-        Role::where('id',$id)->delete();
+        Role::where('id', $id)->delete();
 
         return redirect()->route('role.index');
     }
