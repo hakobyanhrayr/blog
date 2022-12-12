@@ -49,7 +49,7 @@
                          </div>
                          <div style="padding-bottom: 10px; display: flex;align-items: center;width: 100px;justify-content: space-between">
                              <small>Like:
-{{--                                 {{ $post->likes->count() }} --}}
+{{--                                 {{ $post->dislike->count() }}--}}
                              </small>
                              <form action="#" method="POST">
                                  @csrf
